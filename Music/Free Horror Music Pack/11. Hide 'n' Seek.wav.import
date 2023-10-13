@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d1iv76e6kibxg"
+path="res://.godot/imported/11. Hide 'n' Seek.wav-f0c447bb93696547beaea6434af74f93.sample"
+
+[deps]
+
+source_file="res://Music/Free Horror Music Pack/11. Hide 'n' Seek.wav"
+dest_files=["res://.godot/imported/11. Hide 'n' Seek.wav-f0c447bb93696547beaea6434af74f93.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

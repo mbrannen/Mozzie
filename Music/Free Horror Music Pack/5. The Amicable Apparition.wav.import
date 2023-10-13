@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cowqoxfy32j6w"
+path="res://.godot/imported/5. The Amicable Apparition.wav-36cad16073312d35fa9bb626b5abd25e.sample"
+
+[deps]
+
+source_file="res://Music/Free Horror Music Pack/5. The Amicable Apparition.wav"
+dest_files=["res://.godot/imported/5. The Amicable Apparition.wav-36cad16073312d35fa9bb626b5abd25e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dedlcinwjxev"
+path="res://.godot/imported/6. Lurking in the Dark.wav-8b34d9fb4cb0170cbb47b8f2af12344c.sample"
+
+[deps]
+
+source_file="res://Music/Free Horror Music Pack/6. Lurking in the Dark.wav"
+dest_files=["res://.godot/imported/6. Lurking in the Dark.wav-8b34d9fb4cb0170cbb47b8f2af12344c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

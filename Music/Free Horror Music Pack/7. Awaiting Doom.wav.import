@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://62ykueh1j0vp"
+path="res://.godot/imported/7. Awaiting Doom.wav-89552d267497f3f6eafc188fe317e988.sample"
+
+[deps]
+
+source_file="res://Music/Free Horror Music Pack/7. Awaiting Doom.wav"
+dest_files=["res://.godot/imported/7. Awaiting Doom.wav-89552d267497f3f6eafc188fe317e988.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

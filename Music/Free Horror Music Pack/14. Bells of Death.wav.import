@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://duq7qn4xvjvg4"
+path="res://.godot/imported/14. Bells of Death.wav-8e5ccaae32bf6ee65e4627a96e079712.sample"
+
+[deps]
+
+source_file="res://Music/Free Horror Music Pack/14. Bells of Death.wav"
+dest_files=["res://.godot/imported/14. Bells of Death.wav-8e5ccaae32bf6ee65e4627a96e079712.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
