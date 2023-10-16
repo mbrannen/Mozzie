@@ -141,6 +141,7 @@ shape = SubResource("RectangleShape2D_gd127")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Area2D"]
 position = Vector2(0, 7)
+emitting = false
 amount = 18
 process_material = SubResource("ParticleProcessMaterial_3btu1")
 texture = SubResource("AnimatedTexture_4cpcm")
