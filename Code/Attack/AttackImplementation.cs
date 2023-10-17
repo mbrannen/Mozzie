@@ -24,10 +24,8 @@ public partial class AttackImplementation : Node
 		{
 			case Attacks.Cough:
 				return new Cough();
-			case Attacks.Kick:
-				throw new NotImplementedException();
-			case Attacks.Punch:
-				throw new NotImplementedException();
+			case Attacks.Crows:
+				return new Crows();
 			default:
 				return null;
             

@@ -16,6 +16,6 @@ public abstract class AttackBase : IAttack
 public enum Attacks
 {
     Cough,
-    Punch,
+    Crows,
     Kick
 }
