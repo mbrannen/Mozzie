@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c2h38x7pwefkp"]
 
-[ext_resource type="Script" path="res://Code/Attack/AttackImplementation.cs" id="1_i5216"]
+[ext_resource type="Script" path="res://Code/Attack/Attack.cs" id="1_3nkgk"]
 [ext_resource type="Texture2D" uid="uid://dv7uihvxiio1y" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0469_Capa-470.png" id="2_bs7jl"]
 [ext_resource type="Texture2D" uid="uid://dmt7pr3dx3tgs" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0470_Capa-471.png" id="3_o7j57"]
 [ext_resource type="Texture2D" uid="uid://c52coilwibi85" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0471_Capa-472.png" id="4_eb6v4"]
@@ -34,7 +34,7 @@ animations = [{
 }]
 
 [node name="attack_cough" type="Node"]
-script = ExtResource("1_i5216")
+script = ExtResource("1_3nkgk")
 AnimationFade = SubResource("GradientTexture1D_a7b8h")
 
 [node name="AttackTimer" type="Timer" parent="."]

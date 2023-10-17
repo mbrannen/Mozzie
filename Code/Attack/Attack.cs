@@ -3,17 +3,15 @@ using Godot;
 
 namespace Mozzie.Code.Attack;
 
-public partial class AttackImplementation : Node
+public partial class Attack : Node
 {
 	[Export] public GradientTexture1D AnimationFade;
-	[Export] public Attacks Attack;
+	[Export] public Attacks AttackDropdown;
 	private AttackBase _attack;
 
 	public override void _Ready()
 	{
-		var test = Attack;
-		GD.Print(test);
-		_attack =  GetAttack(Attack);
+		_attack =  GetAttack(AttackDropdown);
 		GD.Print(_attack.Name);
 		GD.Print(_attack.Description);
 	}
@@ -28,7 +26,7 @@ public partial class AttackImplementation : Node
 				return new Crows();
 			default:
 				return null;
-            
+			
 		}
 	}
 }
