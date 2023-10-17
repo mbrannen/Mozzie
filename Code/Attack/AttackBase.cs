@@ -13,7 +13,7 @@ public abstract class AttackBase : IAttack
     
 }
 
-public enum Attacks
+public enum AttackNames
 {
     Cough,
     Crows,

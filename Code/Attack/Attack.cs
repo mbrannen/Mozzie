@@ -6,23 +6,23 @@ namespace Mozzie.Code.Attack;
 public partial class Attack : Node
 {
 	[Export] public GradientTexture1D AnimationFade;
-	[Export] public Attacks AttackDropdown;
+	[Export()] public AttackNames AttackNameDropdown;
 	private AttackBase _attack;
 
 	public override void _Ready()
 	{
-		_attack =  GetAttack(AttackDropdown);
+		_attack =  GetAttack(AttackNameDropdown);
 		GD.Print(_attack.Name);
 		GD.Print(_attack.Description);
 	}
 
-	private AttackBase GetAttack(Attacks attack)
+	private AttackBase GetAttack(AttackNames attackName)
 	{
-		switch (attack)
+		switch (attackName)
 		{
-			case Attacks.Cough:
+			case AttackNames.Cough:
 				return new Cough();
-			case Attacks.Crows:
+			case AttackNames.Crows:
 				return new Crows();
 			default:
 				return null;

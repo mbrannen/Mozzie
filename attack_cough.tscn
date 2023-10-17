@@ -36,6 +36,7 @@ animations = [{
 [node name="attack_cough" type="Node"]
 script = ExtResource("1_3nkgk")
 AnimationFade = SubResource("GradientTexture1D_a7b8h")
+AttackDropdown = 1
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
