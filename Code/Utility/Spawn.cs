@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Mozzie.Code.Utility;
 
 public static class Spawn
 {

@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2h38x7pwefkp"]
+
+[ext_resource type="Script" path="res://Code/Attack/AttackImplementation.cs" id="1_i5216"]
+[ext_resource type="Texture2D" uid="uid://dv7uihvxiio1y" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0469_Capa-470.png" id="2_bs7jl"]
+[ext_resource type="Texture2D" uid="uid://dmt7pr3dx3tgs" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0470_Capa-471.png" id="3_o7j57"]
+[ext_resource type="Texture2D" uid="uid://c52coilwibi85" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0471_Capa-472.png" id="4_eb6v4"]
+[ext_resource type="Texture2D" uid="uid://iqkb4a8baeky" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0472_Capa-473.png" id="5_vvw66"]
+
+[sub_resource type="Gradient" id="Gradient_gj0r3"]
+offsets = PackedFloat32Array(0.376744, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a7b8h"]
+gradient = SubResource("Gradient_gj0r3")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fft6g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bs7jl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_o7j57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_eb6v4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vvw66")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="attack_cough" type="Node"]
+script = ExtResource("1_i5216")
+AnimationFade = SubResource("GradientTexture1D_a7b8h")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.65098, 1, 0.54902, 1)
+scale = Vector2(3, 5)
+sprite_frames = SubResource("SpriteFrames_fft6g")
+frame_progress = 0.928398

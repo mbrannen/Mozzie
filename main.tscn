@@ -11,7 +11,7 @@ script = ExtResource("1_3ca1n")
 PlayerNode = NodePath("player")
 ZombieKid = ExtResource("4_idisb")
 EnemyNode = NodePath("Enemies")
-LabelNumberOfEnemies = NodePath("CanvasLayer/Control/Label")
+LabelNumberOfEnemies = NodePath("HUD/Control/Label")
 
 [node name="Node2D" parent="." instance=ExtResource("1_6qgq3")]
 scale = Vector2(3, 3)
@@ -34,15 +34,15 @@ PlayerNode = NodePath("../../player")
 [node name="SpawnTimer" type="Timer" parent="Timers"]
 autostart = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 268.0
 offset_bottom = 352.0
 
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
+[node name="Label" type="Label" parent="HUD/Control"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 17.0
