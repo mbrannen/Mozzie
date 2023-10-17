@@ -70,6 +70,7 @@ size = Vector2(6, 10)
 
 [node name="ZombieKid" type="Area2D"]
 scale = Vector2(3, 3)
+collision_layer = 2
 script = ExtResource("1_1nen4")
 Health = 10
 

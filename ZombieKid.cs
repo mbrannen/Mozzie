@@ -30,4 +30,5 @@ public partial class ZombieKid : Area2D, IEnemy
 		var moveTowardsVector = (Player.Position - Position).Normalized() * Speed * delta;
 		Position += new Vector2(moveTowardsVector.X, moveTowardsVector.Y);
 	}
+
 }
