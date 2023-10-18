@@ -1,14 +1,19 @@
+using Mozzie.Code.Talents;
+
 namespace Mozzie.Code.Attack;
 
-class Crows : AttackBase
+public sealed class Crows : AttackBase
 {
-    public override string Name => "Crows";
+    public Crows(TalentModel talents) : base(talents)
+    {
+    }
 
+    public override string Name => "Crows";
     public override string Description => "A swarm of friendly crows surrounds you.";
 
-    public override float Timer => 2f;
+    public override float BaseTimer => 4f;
+    public override int BaseDamage => 2;
+    public override int BaseCount => 3;
+    public override float BaseCriticalChance => 0.05f;
 
-    public override int Damage => 2;
-
-    public override int Count => 3;
 }
