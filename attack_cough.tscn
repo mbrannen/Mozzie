@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2h38x7pwefkp"]
+[gd_scene load_steps=10 format=3 uid="uid://c2h38x7pwefkp"]
 
 [ext_resource type="Script" path="res://Code/Attack/Attack.cs" id="1_3nkgk"]
 [ext_resource type="Texture2D" uid="uid://dv7uihvxiio1y" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0469_Capa-470.png" id="2_bs7jl"]
@@ -33,7 +33,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="attack_cough" type="Node" node_paths=PackedStringArray("AttackTimer")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_2p4y6"]
+radius = 17.0
+
+[node name="attack_cough" type="Node2D" node_paths=PackedStringArray("AttackTimer")]
 script = ExtResource("1_3nkgk")
 AnimationFade = SubResource("GradientTexture1D_a7b8h")
 AttackNameDropdown = 2
@@ -45,8 +48,15 @@ autostart = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.65098, 1, 0.54902, 1)
+rotation = -1.5708
 scale = Vector2(3, 5)
 sprite_frames = SubResource("SpriteFrames_fft6g")
-frame_progress = 0.928398
+frame_progress = 0.741169
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_2p4y6")
 
 [connection signal="timeout" from="AttackTimer" to="." method="OnAttackTimeout"]

@@ -25,10 +25,6 @@ bus = &"Music"
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="ZombieKid" parent="Enemies" node_paths=PackedStringArray("PlayerNode") instance=ExtResource("4_idisb")]
-Speed = 200.0
-PlayerNode = NodePath("../../player")
-
 [node name="Timers" type="Node" parent="."]
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]

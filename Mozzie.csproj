@@ -3,4 +3,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Mozzie_Test\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Mozzie_Test\**" />
+  </ItemGroup>
 </Project>

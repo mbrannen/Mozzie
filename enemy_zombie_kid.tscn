@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://oy2jt41gisbe"]
 
-[ext_resource type="Script" path="res://ZombieKid.cs" id="1_1nen4"]
+[ext_resource type="Script" path="res://Code/Enemy/Enemy.cs" id="1_bstpd"]
 [ext_resource type="Texture2D" uid="uid://duhp3ih0cxae5" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0430_Capa-431.png" id="1_tvirt"]
 [ext_resource type="Texture2D" uid="uid://duv1pqujntqx8" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0431_Capa-432.png" id="2_q7p0c"]
 [ext_resource type="Texture2D" uid="uid://cxrvdi6vsig78" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0432_Capa-433.png" id="3_ir6s3"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://dcdb5xl6k00w6" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0436_Capa-437.png" id="8_uxx2s"]
 [ext_resource type="Texture2D" uid="uid://c0tamqfjt674b" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0437_Capa-438.png" id="9_hvj2c"]
 [ext_resource type="Texture2D" uid="uid://2l5vyqpm5drq" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0438_Capa-439.png" id="10_7inse"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmqnv"]
+size = Vector2(6, 10)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rmafr"]
 animations = [{
@@ -65,18 +68,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmqnv"]
-size = Vector2(6, 10)
-
-[node name="ZombieKid" type="Area2D"]
+[node name="ZombieKid" type="Node2D"]
 scale = Vector2(3, 3)
+script = ExtResource("1_bstpd")
+
+[node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
-script = ExtResource("1_1nen4")
-Health = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lmqnv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rmafr")
 animation = &"walk_lateral"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_lmqnv")

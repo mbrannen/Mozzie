@@ -4,11 +4,12 @@ using Mozzie.Code.Talents;
 
 namespace Mozzie.Code.Attack;
 
-public partial class Attack : Node
+public partial class Attack : Node2D
 {
 	[Export] public GradientTexture1D AnimationFade;
 	[Export()] public AttackNames AttackNameDropdown;
 	[Export] public Timer AttackTimer;
+	
 	private AttackBase _attack;
 
 	public override void _Ready()
@@ -37,12 +38,10 @@ public partial class Attack : Node
 	private void OnAttackTimeout()
 	{
 		CastAttack();
-		
 	}
 
 	private void CastAttack()
 	{
 		var damage = _attack.CalculateDamage();
-		GD.Print($"!!{_attack.Name}: {damage}!!");
 	}
 }

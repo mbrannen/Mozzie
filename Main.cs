@@ -1,18 +1,19 @@
 using Godot;
-using System;
-using System.Web;
+using Mozzie.Code.Enemy;
 using Mozzie.Code.Utility;
+
+namespace Mozzie;
 
 public partial class Main : Node2D
 {
 	[Export]
 	public Node2D PlayerNode { get; set; }
-	
+
 	[Export] public PackedScene ZombieKid { get; set; }
 	[Export] public Node EnemyNode { get; set; }
 	[Export] public Label LabelNumberOfEnemies { get; set; }
 
-	public int NumberOfEnemies { get; set; } = 0;
+	public int NumberOfEnemies { get; set; }
 
 	private Area2D Player { get; set; }
 	// Called when the node enters the scene tree for the first time.
@@ -30,28 +31,27 @@ public partial class Main : Node2D
 	private void OnSpawnTimerTimeout()
 	{
 		#region SingleSpaw
-			//initial test of spawning
-			ZombieKid zombieKid = ZombieKid.Instantiate<ZombieKid>();
-			zombieKid.PlayerNode = PlayerNode;
-
-			var spawnLocation = Spawn.GetRandomPointInCircleAroundPosition(Player.Position, 300f);
-			zombieKid.Position = spawnLocation;
-			EnemyNode.AddChild(zombieKid);
-			UpdateLabelForNumberOfEnemies(1);
+		//initial test of spawning
+		var zombieKid = ZombieKid.Instantiate<Enemy>();
+		var spawnLocation = Spawn.GetRandomPointInCircleAroundPosition(Player.Position, 300f);
+		zombieKid.Position = spawnLocation;
+		zombieKid.EnemyBase.Player = Player;
+		EnemyNode.AddChild(zombieKid);
+		UpdateLabelForNumberOfEnemies(1);
 		
 		#endregion
 
 		#region MultiSpawn
-			//inital multispawn testing
-			var spawnLocations = Spawn.GetPointsInCircleAroundPosition(Player.Position, 300f, 30);
-			foreach (var location in spawnLocations)
-			{
-				ZombieKid zombieKidMulti = ZombieKid.Instantiate<ZombieKid>();
-				zombieKidMulti.PlayerNode = PlayerNode;
-				zombieKidMulti.Position = location;
-				EnemyNode.AddChild(zombieKidMulti);
-				UpdateLabelForNumberOfEnemies(1);
-			}
+		// initial multispawn testing
+		var spawnLocations = Spawn.GetPointsInCircleAroundPosition(Player.Position, 500f, 100);
+		foreach (var location in spawnLocations)
+		{
+			var zombieKidMulti = ZombieKid.Instantiate<Enemy>();
+			zombieKidMulti.EnemyBase.Player = Player;
+			zombieKidMulti.Position = location;
+			EnemyNode.AddChild(zombieKidMulti);
+			UpdateLabelForNumberOfEnemies(1);
+		}
 
 		#endregion
 
