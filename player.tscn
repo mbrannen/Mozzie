@@ -123,13 +123,15 @@ frame_4/duration = 0.2
 frame_5/texture = ExtResource("16_rfobv")
 frame_5/duration = 0.2
 
-[node name="main" type="Node2D"]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("PlayerSprite", "PlayerDustParticles", "AttackRootMarker")]
+script = ExtResource("1_a6blg")
+PlayerSprite = NodePath("Area2D/AnimatedSprite2D_player")
+PlayerDustParticles = NodePath("Area2D/GPUParticles2D")
+AttackRootMarker = NodePath("Area2D/AttackRootMarker")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(400, 300)
 scale = Vector2(3, 3)
 collision_mask = 2
-script = ExtResource("1_a6blg")
 
 [node name="AnimatedSprite2D_player" type="AnimatedSprite2D" parent="Area2D"]
 z_index = 1
@@ -149,3 +151,6 @@ texture = SubResource("AnimatedTexture_4cpcm")
 fixed_fps = 60
 
 [node name="Camera2D" type="Camera2D" parent="Area2D"]
+
+[node name="AttackRootMarker" type="Marker2D" parent="Area2D"]
+gizmo_extents = 16.0

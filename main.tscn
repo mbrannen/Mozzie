@@ -17,6 +17,7 @@ LabelNumberOfEnemies = NodePath("HUD/Control/Label")
 scale = Vector2(3, 3)
 
 [node name="player" parent="." instance=ExtResource("2_qhnmi")]
+position = Vector2(400, 300)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_rap3f")

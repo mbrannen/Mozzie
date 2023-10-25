@@ -1,13 +1,18 @@
 using Godot;
-using System;
 
-public partial class Player : Area2D
+namespace Mozzie;
+
+public partial class Player : Node2D
 {
 	[Signal]
 	public delegate void HitEventHandler();
 	
 	[Export]
 	public int Speed {get; set;} = 200;
+
+	[Export] public AnimatedSprite2D PlayerSprite;
+	[Export] public GpuParticles2D PlayerDustParticles;
+	[Export] public Marker2D AttackRootMarker;
 	
 	public Vector2 ScreenSize;
 	
@@ -44,19 +49,19 @@ public partial class Player : Area2D
 			velocity.Y -= 1;
 		}
 		
-		var playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D_player");
-		var dustEmitter = GetNode<GpuParticles2D>("GPUParticles2D");
+		//var PlayerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D_player");
+		//var PlayerDustParticles = GetNode<GpuParticles2D>("GPUParticles2D");
 	
 		if (velocity.Length() > 0)
 		{
 			velocity = velocity.Normalized() * Speed;
-			playerSprite.Play();
-			dustEmitter.Emitting = true;
+			PlayerSprite.Play();
+			PlayerDustParticles.Emitting = true;
 		}
 		else
 		{
-			dustEmitter.Emitting = false;
-			playerSprite.Stop();
+			PlayerDustParticles.Emitting = false;
+			PlayerSprite.Stop();
 		}
 		
 		Position += velocity * (float)delta;
@@ -66,22 +71,22 @@ public partial class Player : Area2D
 		
 		if (velocity.X != 0)
 		{
-			playerSprite.Animation = "walk_lateral";
-			playerSprite.FlipH = false;
+			PlayerSprite.Animation = "walk_lateral";
+			PlayerSprite.FlipH = false;
 			// See the note below about boolean assignment.
-			playerSprite.FlipH = velocity.X < 0;
+			PlayerSprite.FlipH = velocity.X < 0;
 			
 		}
 		else if (velocity.Y < 0)
-			playerSprite.Animation = "walk_up";
+			PlayerSprite.Animation = "walk_up";
 		else if (velocity.Y > 0)
-			playerSprite.Animation = "walk_down";
+			PlayerSprite.Animation = "walk_down";
 	}
 	
 	private void OnBodyEntered(Node2D body)
 	{
 		Hide(); // Player disappears after being hit.
-		EmitSignal(SignalName.Hit);
+		//EmitSignal(global::Player.SignalName.Hit);
 		// Must be deferred as we can't change physics properties on a physics callback.
 		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 	}

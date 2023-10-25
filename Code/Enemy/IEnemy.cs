@@ -10,8 +10,8 @@ public interface IEnemy
     public int Health { get; set; }
     public float BaseSpeed { get; }
     public float Speed { get; set; }
-    public Node2D PlayerNode { get; set; }
-    public Area2D Player { get; set; }
+    public Node2D Player { get; set; }
+
 
     protected Vector2 Position { get; set; }
     void Navigate(float delta);

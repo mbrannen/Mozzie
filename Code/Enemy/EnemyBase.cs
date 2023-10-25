@@ -12,8 +12,7 @@ public abstract class EnemyBase : IEnemy
     public virtual float BaseSpeed => 0f;
     public virtual float Speed { get; set; }
     
-    public Node2D PlayerNode { get; set; }
-    public Area2D Player { get; set; }
+    public Node2D Player { get; set; }
     public Vector2 Position { get; set; }
 
     public EnemyBase()
