@@ -49,7 +49,7 @@ public partial class Main : Node2D
 
 		#region MultiSpawn
 		// initial multispawn testing
-		var spawnLocations = Spawn.GetPointsInCircleAroundPosition(PlayerNode.Position, 500f, 100);
+		var spawnLocations = Spawn.GetPointsInCircleAroundPosition(PlayerNode.Position, 500f, 3);
 		foreach (var location in spawnLocations)
 		{
 			var zombieKidMulti = ZombieKid.Instantiate<Enemy>();

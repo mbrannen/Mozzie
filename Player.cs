@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using Godot;
+using Mozzie.Code.Attack;
 
 namespace Mozzie;
 
@@ -9,52 +11,77 @@ public partial class Player : Node2D
 	
 	[Export]
 	public int Speed {get; set;} = 200;
-
+	[ExportGroup("Visuals")]
 	[Export] public AnimatedSprite2D PlayerSprite;
 	[Export] public GpuParticles2D PlayerDustParticles;
+
+
+	[ExportGroup("Attacks")] 
+	[Export] public Node2D AttackNode;
 	[Export] public Marker2D AttackRootMarker;
+	[Export] public PackedScene[] AttackScenes;
+	public Attack[] Attacks;
 	
+	
+	public PlayerDirection Direction;
 	public Vector2 ScreenSize;
-	
-	
+	public Vector2 Velocity;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		ScreenSize = GetViewportRect().Size;
-		//Hide();
+		
+		//load the attack scenes
+		if (AttackScenes is { Length: > 0 }) 
+			Attacks = new Attack[AttackScenes.Length];
+		else
+			GD.PushWarning("No Attacks loaded!");
+		
+		//convert scenes to Attack and add as a child node
+		for (int i = 0; i < AttackScenes.Length; i++)
+		{
+			Attacks[i]  = AttackScenes[i].Instantiate() as Attack;
+			Attacks[i].Player = this;
+			GD.Print($"Loaded {Attacks[i].AttackNameDropdown} attack.");
+			AttackNode.AddChild(Attacks[i]);
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		var velocity = Vector2.Zero;
-		
-		if (Input.IsActionPressed("right"))
-		{
-			velocity.X += 1;
-		}
-
-		if (Input.IsActionPressed("left"))
-		{
-			velocity.X -= 1;
-		}
+		Velocity = Vector2.Zero;
 
 		if (Input.IsActionPressed("down"))
 		{
-			velocity.Y += 1;
+			Velocity.Y += 1;
+			Direction = PlayerDirection.Down;
 		}
 
 		if (Input.IsActionPressed("up"))
 		{
-			velocity.Y -= 1;
+			Velocity.Y -= 1;
+			Direction = PlayerDirection.Up;
+		}
+		if (Input.IsActionPressed("right"))
+		{
+			Velocity.X += 1;
+			
+		}
+
+		if (Input.IsActionPressed("left"))
+		{
+			Velocity.X -= 1;
+			Direction = PlayerDirection.Left;
 		}
 		
 		//var PlayerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D_player");
 		//var PlayerDustParticles = GetNode<GpuParticles2D>("GPUParticles2D");
 	
-		if (velocity.Length() > 0)
+		if (Velocity.Length() > 0)
 		{
-			velocity = velocity.Normalized() * Speed;
+			Velocity = Velocity.Normalized() * Speed;
 			PlayerSprite.Play();
 			PlayerDustParticles.Emitting = true;
 		}
@@ -64,22 +91,27 @@ public partial class Player : Node2D
 			PlayerSprite.Stop();
 		}
 		
-		Position += velocity * (float)delta;
+		Position += Velocity * (float)delta;
 		// Position = new Vector2(
 		// 	x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
 		// 	y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y));
 		
-		if (velocity.X != 0)
+		if (Velocity.X != 0)
 		{
+			if(Velocity.X < 0)
+				Direction = PlayerDirection.Left;
+			else
+				Direction = PlayerDirection.Right;
+			
 			PlayerSprite.Animation = "walk_lateral";
 			PlayerSprite.FlipH = false;
 			// See the note below about boolean assignment.
-			PlayerSprite.FlipH = velocity.X < 0;
+			PlayerSprite.FlipH = Velocity.X < 0;
 			
 		}
-		else if (velocity.Y < 0)
+		else if (Velocity.Y < 0)
 			PlayerSprite.Animation = "walk_up";
-		else if (velocity.Y > 0)
+		else if (Velocity.Y > 0)
 			PlayerSprite.Animation = "walk_down";
 	}
 	
@@ -97,4 +129,12 @@ public partial class Player : Node2D
 		Show();
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
 	}
+}
+
+public enum PlayerDirection
+{
+	Up,
+	Down,
+	Left,
+	Right
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://by441apmltlxd"]
+[gd_scene load_steps=26 format=3 uid="uid://by441apmltlxd"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_a6blg"]
 [ext_resource type="Texture2D" uid="uid://dayk2racykoun" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0476_Capa-477.png" id="1_y6atx"]
 [ext_resource type="Texture2D" uid="uid://dbb52iwckctky" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0478_Capa-479.png" id="2_20rla"]
+[ext_resource type="PackedScene" uid="uid://c2h38x7pwefkp" path="res://attack_cough.tscn" id="2_hr1us"]
 [ext_resource type="Texture2D" uid="uid://b3uajpm6vcmyb" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0477_Capa-478.png" id="3_8c7xv"]
 [ext_resource type="Texture2D" uid="uid://cwx2bx0pk6li6" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0479_Capa-480.png" id="4_56a8i"]
 [ext_resource type="Texture2D" uid="uid://2nufwlhrf1ap" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0481_Capa-482.png" id="5_qrgh3"]
@@ -128,6 +129,7 @@ script = ExtResource("1_a6blg")
 PlayerSprite = NodePath("Area2D/AnimatedSprite2D_player")
 PlayerDustParticles = NodePath("Area2D/GPUParticles2D")
 AttackRootMarker = NodePath("Area2D/AttackRootMarker")
+AttackScenes = Array[PackedScene]([ExtResource("2_hr1us")])
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(3, 3)

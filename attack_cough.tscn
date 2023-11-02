@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2h38x7pwefkp"]
+[gd_scene load_steps=11 format=3 uid="uid://c2h38x7pwefkp"]
 
 [ext_resource type="Script" path="res://Code/Attack/Attack.cs" id="1_3nkgk"]
 [ext_resource type="Texture2D" uid="uid://dv7uihvxiio1y" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Turret Zombie Vomit Shooting Animation Frames/Zombie-Tileset---_0469_Capa-470.png" id="2_bs7jl"]
@@ -12,6 +12,11 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_a7b8h"]
 gradient = SubResource("Gradient_gj0r3")
+
+[sub_resource type="Curve" id="Curve_d0icy"]
+bake_resolution = 256
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.990798, 0.0210526), -2.28772, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fft6g"]
 animations = [{
@@ -36,10 +41,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_2p4y6"]
 radius = 17.0
 
-[node name="attack_cough" type="Node2D" node_paths=PackedStringArray("AttackTimer")]
+[node name="attack_cough" type="Node2D" node_paths=PackedStringArray("Animation", "AttackTimer")]
 script = ExtResource("1_3nkgk")
 AnimationFade = SubResource("GradientTexture1D_a7b8h")
-AttackNameDropdown = 2
+Animation = NodePath("AnimatedSprite2D")
+VelocityCurve = SubResource("Curve_d0icy")
 AttackTimer = NodePath("AttackTimer")
 
 [node name="AttackTimer" type="Timer" parent="."]
@@ -51,7 +57,7 @@ modulate = Color(0.65098, 1, 0.54902, 1)
 rotation = -1.5708
 scale = Vector2(3, 5)
 sprite_frames = SubResource("SpriteFrames_fft6g")
-frame_progress = 0.741169
+frame_progress = 0.854139
 
 [node name="Area2D" type="Area2D" parent="."]
 

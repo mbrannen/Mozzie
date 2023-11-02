@@ -7,6 +7,7 @@ namespace Mozzie.Code.Attack;
 
 public abstract class AttackBase : IAttack
 {
+    public bool Enabled { get; set; }
     public virtual string Name => "Not Implemented";
     public virtual string Description => "Not Implemented";
     public virtual float BaseTimer => 1f;
@@ -17,7 +18,7 @@ public abstract class AttackBase : IAttack
     public int Count { get; set; }
     public virtual float BaseCriticalChance => 0;
     public float CriticalChance { get; set; }
-    
+
     public AttackBase(TalentModel talents)
     {
         Timer = BaseTimer + talents.Timer;
