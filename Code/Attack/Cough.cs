@@ -11,8 +11,9 @@ public sealed class Cough : AttackBase
 
 	public override string Name => "Cough";
 	public override string Description => "An infectious cough...";
-	public override float BaseTimer => 3f;
+	public override float BaseTimer => 2f;
 	public override int BaseDamage => 2;
 	public override int BaseCount => 1;
 	public override float BaseCriticalChance => 0.25f;
+	public override bool CanBeRotated => true;
 }

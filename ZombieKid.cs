@@ -12,5 +12,5 @@ public partial class ZombieKid : EnemyBase
     public override string Name => "ZombieKid";
     public override string Description => "A small annoying little fucker.";
     public override int BaseHealth => 20;
-    public override float BaseSpeed => 150f;
+    public override float BaseSpeed => 75f;
 }

@@ -15,4 +15,5 @@ public sealed class Shiv : AttackBase
     public override int BaseDamage => 5;
     public override int BaseCount => 1;
     public override float BaseCriticalChance => 0.10f;
+    public override bool CanBeRotated => true;
 }

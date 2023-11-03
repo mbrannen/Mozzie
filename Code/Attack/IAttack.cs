@@ -13,5 +13,15 @@ public interface IAttack
     public int Count { get; set; }
     public float BaseCriticalChance { get; }
     public float CriticalChance { get; set; }
+    
+    
+    //ANIMATION SPECIFIC PROPERTIES
+
+    #region Animation Properties
+    public bool CanBeRotated { get; }
+    
+
+    #endregion
+    
 
 }

@@ -17,7 +17,7 @@ public partial class Player : Node2D
 
 
 	[ExportGroup("Attacks")] 
-	[Export] public Node2D AttackNode;
+	[Export] public Node2D AttackNode; //Global Node to attach attacks to
 	[Export] public Marker2D AttackRootMarker;
 	[Export] public PackedScene[] AttackScenes;
 	public Attack[] Attacks;

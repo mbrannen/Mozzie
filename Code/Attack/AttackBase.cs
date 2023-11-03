@@ -18,6 +18,7 @@ public abstract class AttackBase : IAttack
     public int Count { get; set; }
     public virtual float BaseCriticalChance => 0;
     public float CriticalChance { get; set; }
+    public abstract bool CanBeRotated { get; }
 
     public AttackBase(TalentModel talents)
     {

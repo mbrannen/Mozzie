@@ -15,5 +15,5 @@ public sealed class Crows : AttackBase
     public override int BaseDamage => 2;
     public override int BaseCount => 3;
     public override float BaseCriticalChance => 0.05f;
-
+    public override bool CanBeRotated => false;
 }
