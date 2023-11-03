@@ -1,11 +1,13 @@
 using System;
 using Godot;
+using Mozzie.Code.Enemy;
 using Mozzie.Code.Talents;
 
 namespace Mozzie.Code.Attack;
 
 public partial class Attack : Node2D
 {
+	[Export] public Area2D CollisionArea;
 	[Export] public GradientTexture1D AnimationFade;
 	[Export] public AnimatedSprite2D Animation;
 	[Export] public Curve AttackCurve;
@@ -25,12 +27,16 @@ public partial class Attack : Node2D
 		_attack =  GetAttack(AttackNameDropdown);
 		//sets the timer on the scene to match the attack's timer
 		AttackTimer.WaitTime = _attack.Timer;
+		CollisionArea.BodyEntered += OnEnemyEntered;
+		CollisionArea.AreaEntered += OnAreaEntered;
 	}
 	
 	public override void _Process(double delta)
 	{
 		_percentageProgress = (_attack.Timer - AttackTimer.TimeLeft) / _attack.Timer;
 		CalculateCanHit();
+		if (!CanHit)
+			CollisionArea.Monitoring = false;
 		AdjustOpacity();
 		Move(delta);
 		
@@ -71,6 +77,7 @@ public partial class Attack : Node2D
 
 	private void Reset()
 	{
+		CollisionArea.Monitoring = true;
 		GlobalPosition = Player.AttackRootMarker.GlobalPosition;
 	}
 
@@ -123,4 +130,18 @@ public partial class Attack : Node2D
 		return AttackCurve.Sample((float)(_percentageProgress * 256)/256);
 	}
 	
+	private void OnEnemyEntered(Node2D body)
+	{
+		var enemy = body as Enemy.Enemy;
+		GD.Print($"{_attack.Name} collided with {enemy.EnemyBase.Name}");
+	}
+	private void OnAreaEntered(Area2D body)
+	{
+		var enemy = body.GetParent<Node2D>() as Enemy.Enemy;
+		GD.Print($"{_attack.Name} collided with {enemy.EnemyBase.Name}");
+	}
+	
 }
+
+
+

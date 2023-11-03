@@ -32,6 +32,7 @@ bus = &"Music"
 [node name="Timers" type="Node" parent="."]
 
 [node name="SpawnTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
 autostart = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
