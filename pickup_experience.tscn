@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhqk7ggb31b2h"]
+
+[ext_resource type="Script" path="res://Code/Pickups/Pickup.cs" id="1_by3nb"]
+[ext_resource type="Texture2D" uid="uid://0dytux32nuji" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Pickable Items and Weapons/Zombie-Tileset---_0341_Capa-342.png" id="2_yro7r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xioaw"]
+size = Vector2(6.66667, 9.33333)
+
+[node name="pickup_experience" type="Node2D" node_paths=PackedStringArray("CollisionArea")]
+script = ExtResource("1_by3nb")
+CollisionArea = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_xioaw")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("2_yro7r")

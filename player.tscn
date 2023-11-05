@@ -1,11 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://by441apmltlxd"]
+[gd_scene load_steps=28 format=3 uid="uid://by441apmltlxd"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_a6blg"]
 [ext_resource type="Texture2D" uid="uid://dayk2racykoun" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0476_Capa-477.png" id="1_y6atx"]
 [ext_resource type="Texture2D" uid="uid://dbb52iwckctky" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0478_Capa-479.png" id="2_20rla"]
 [ext_resource type="PackedScene" uid="uid://c2h38x7pwefkp" path="res://attack_cough.tscn" id="2_hr1us"]
 [ext_resource type="Texture2D" uid="uid://b3uajpm6vcmyb" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0477_Capa-478.png" id="3_8c7xv"]
+[ext_resource type="PackedScene" uid="uid://vodge405khyx" path="res://attack_shiv.tscn" id="3_c2mu8"]
 [ext_resource type="Texture2D" uid="uid://cwx2bx0pk6li6" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0479_Capa-480.png" id="4_56a8i"]
+[ext_resource type="PackedScene" uid="uid://dqrtj5uuo2p4" path="res://attack_crow.tscn" id="4_tkb18"]
 [ext_resource type="Texture2D" uid="uid://2nufwlhrf1ap" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0481_Capa-482.png" id="5_qrgh3"]
 [ext_resource type="Texture2D" uid="uid://peh28pkw6tmj" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0480_Capa-481.png" id="6_vul6r"]
 [ext_resource type="Texture2D" uid="uid://dkwgmpnb3cn5y" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Player Character Walking Animation Frames/Zombie-Tileset---_0482_Capa-483.png" id="7_j0f3q"]
@@ -129,7 +131,7 @@ script = ExtResource("1_a6blg")
 PlayerSprite = NodePath("Area2D/AnimatedSprite2D_player")
 PlayerDustParticles = NodePath("Area2D/GPUParticles2D")
 AttackRootMarker = NodePath("Area2D/AttackRootMarker")
-AttackScenes = Array[PackedScene]([ExtResource("2_hr1us")])
+AttackScenes = Array[PackedScene]([ExtResource("2_hr1us"), ExtResource("3_c2mu8"), ExtResource("4_tkb18")])
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(3, 3)
@@ -155,3 +157,15 @@ fixed_fps = 60
 
 [node name="AttackRootMarker" type="Marker2D" parent="Area2D"]
 gizmo_extents = 16.0
+
+[node name="HealthBar" type="ProgressBar" parent="Area2D"]
+modulate = Color(1, 0, 0, 1)
+offset_left = -9.66667
+offset_top = -13.0
+offset_right = 10.3333
+offset_bottom = -9.0
+size_flags_vertical = 1
+max_value = 10.0
+step = 1.0
+rounded = true
+show_percentage = false

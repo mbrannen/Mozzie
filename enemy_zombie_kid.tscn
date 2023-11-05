@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://oy2jt41gisbe"]
+[gd_scene load_steps=14 format=3 uid="uid://oy2jt41gisbe"]
 
 [ext_resource type="Script" path="res://Code/Enemy/Enemy.cs" id="1_bstpd"]
 [ext_resource type="Texture2D" uid="uid://duhp3ih0cxae5" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0430_Capa-431.png" id="1_tvirt"]
+[ext_resource type="PackedScene" uid="uid://ss3e0dxsivfu" path="res://damage_text.tscn" id="2_8sjdd"]
 [ext_resource type="Texture2D" uid="uid://duv1pqujntqx8" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0431_Capa-432.png" id="2_q7p0c"]
 [ext_resource type="Texture2D" uid="uid://cxrvdi6vsig78" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0432_Capa-433.png" id="3_ir6s3"]
 [ext_resource type="Texture2D" uid="uid://b50fdkfbqjkm2" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Kid Zombie Animation Frames/Zombie-Tileset---_0433_Capa-434.png" id="5_nxpsk"]
@@ -68,9 +69,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="ZombieKid" type="Node2D"]
+[node name="ZombieKid" type="Node2D" node_paths=PackedStringArray("MarkerDamageText")]
 scale = Vector2(3, 3)
 script = ExtResource("1_bstpd")
+DamageText = ExtResource("2_8sjdd")
+MarkerDamageText = NodePath("DamageTextMarker")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
@@ -82,3 +85,7 @@ shape = SubResource("RectangleShape2D_lmqnv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rmafr")
 animation = &"walk_lateral"
+
+[node name="DamageTextMarker" type="Marker2D" parent="."]
+position = Vector2(-5.66667, -14.3333)
+gizmo_extents = 22.9

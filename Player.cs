@@ -4,13 +4,16 @@ using Mozzie.Code.Attack;
 
 namespace Mozzie;
 
-public partial class Player : Node2D
+public partial class Player : Node2D, IPlayer
 {
 	[Signal]
 	public delegate void HitEventHandler();
 	
 	[Export]
 	public int Speed {get; set;} = 200;
+	public string Description { get; set; }
+	public int Health { get; set; } = 10;
+	public int Experience { get; set; }
 	[ExportGroup("Visuals")]
 	[Export] public AnimatedSprite2D PlayerSprite;
 	[Export] public GpuParticles2D PlayerDustParticles;
@@ -26,6 +29,8 @@ public partial class Player : Node2D
 	public PlayerDirection Direction;
 	public Vector2 ScreenSize;
 	public Vector2 Velocity;
+
+	public const float ATTACKMARKER_OFFSET = 16f;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -52,27 +57,32 @@ public partial class Player : Node2D
 	public override void _Process(double delta)
 	{
 		Velocity = Vector2.Zero;
+		
 
 		if (Input.IsActionPressed("down"))
 		{
 			Velocity.Y += 1;
+			AttackRootMarker.Position = new Vector2(0, ATTACKMARKER_OFFSET);
 			Direction = PlayerDirection.Down;
 		}
 
 		if (Input.IsActionPressed("up"))
 		{
 			Velocity.Y -= 1;
+			AttackRootMarker.Position = new Vector2(0, -ATTACKMARKER_OFFSET);
 			Direction = PlayerDirection.Up;
 		}
 		if (Input.IsActionPressed("right"))
 		{
 			Velocity.X += 1;
+			AttackRootMarker.Position = new Vector2(ATTACKMARKER_OFFSET, 0);
 			
 		}
 
 		if (Input.IsActionPressed("left"))
 		{
 			Velocity.X -= 1;
+			AttackRootMarker.Position = new Vector2(-ATTACKMARKER_OFFSET, 0);
 			Direction = PlayerDirection.Left;
 		}
 		
@@ -129,6 +139,7 @@ public partial class Player : Node2D
 		Show();
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
 	}
+	
 }
 
 public enum PlayerDirection

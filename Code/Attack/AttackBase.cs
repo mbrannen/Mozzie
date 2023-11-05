@@ -19,6 +19,8 @@ public abstract class AttackBase : IAttack
     public virtual float BaseCriticalChance => 0;
     public float CriticalChance { get; set; }
     public abstract bool CanBeRotated { get; }
+    public abstract bool CanMove { get; }
+    public abstract bool IsRootedToPlayer { get; }
 
     public AttackBase(TalentModel talents)
     {
@@ -34,11 +36,11 @@ public abstract class AttackBase : IAttack
         return GD.RandRange(0.01, 1) < CriticalChance;
     }
 
-    public virtual int CalculateDamage()
+    public virtual Damage CalculateDamage()
     {
         if (IsCrit())
-            return Damage * 2;
-        return Damage;
+            return new Damage {DamageAmount = Damage * 2, IsCrit = true};
+        return new Damage {DamageAmount = Damage};
     }
 }
 

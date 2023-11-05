@@ -1,33 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://414w0mxq3fbg"]
+[gd_scene load_steps=16 format=3 uid="uid://414w0mxq3fbg"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_3ca1n"]
 [ext_resource type="PackedScene" uid="uid://ccsqfurm3ny5c" path="res://farm_map1.tscn" id="1_6qgq3"]
 [ext_resource type="PackedScene" uid="uid://by441apmltlxd" path="res://player.tscn" id="2_qhnmi"]
 [ext_resource type="AudioStream" uid="uid://btb3ws4c52er5" path="res://Music/Free Horror Music Pack/20. A hollow Call.wav" id="3_rap3f"]
 [ext_resource type="PackedScene" uid="uid://oy2jt41gisbe" path="res://enemy_zombie_kid.tscn" id="4_idisb"]
+[ext_resource type="PackedScene" uid="uid://c2h38x7pwefkp" path="res://attack_cough.tscn" id="5_dic7s"]
+[ext_resource type="PackedScene" uid="uid://vodge405khyx" path="res://attack_shiv.tscn" id="5_suj8y"]
+[ext_resource type="PackedScene" uid="uid://dqrtj5uuo2p4" path="res://attack_crow.tscn" id="7_rd6o4"]
+[ext_resource type="Script" path="res://HUD.cs" id="9_47xml"]
+[ext_resource type="Script" path="res://Code/Pickups/PickupManager.cs" id="10_bx4td"]
+[ext_resource type="Script" path="res://StatManager.cs" id="11_qurlr"]
 
-[node name="main" type="Node2D" node_paths=PackedStringArray("PlayerNode", "EnemyNode", "LabelNumberOfEnemies")]
+[sub_resource type="CanvasTexture" id="CanvasTexture_my8v6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0q6mf"]
+specular_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_lub0g"]
+font_names = PackedStringArray("Lucida Console")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6p7kf"]
+line_spacing = 0.0
+font = SubResource("SystemFont_lub0g")
+
+[node name="main" type="Node2D" node_paths=PackedStringArray("PlayerNode", "EnemyNode", "NodeDamageTexts", "LabelNumberOfEnemies")]
 script = ExtResource("1_3ca1n")
 PlayerNode = NodePath("player")
 ZombieKid = ExtResource("4_idisb")
 EnemyNode = NodePath("Enemies")
+NodeDamageTexts = NodePath("DamageTexts")
 LabelNumberOfEnemies = NodePath("HUD/Control/Label")
 
 [node name="Node2D" parent="." instance=ExtResource("1_6qgq3")]
 scale = Vector2(3, 3)
-
-[node name="AttackNode" type="Node2D" parent="."]
-
-[node name="player" parent="." node_paths=PackedStringArray("AttackNode") instance=ExtResource("2_qhnmi")]
-position = Vector2(400, 300)
-AttackNode = NodePath("../AttackNode")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_rap3f")
-volume_db = -2.552
-bus = &"Music"
-
-[node name="Enemies" type="Node" parent="."]
 
 [node name="Timers" type="Node" parent="."]
 
@@ -35,7 +41,24 @@ bus = &"Music"
 wait_time = 2.0
 autostart = true
 
+[node name="player" parent="." node_paths=PackedStringArray("AttackNode") instance=ExtResource("2_qhnmi")]
+position = Vector2(400, 301)
+AttackNode = NodePath("../AttackNode")
+AttackScenes = Array[PackedScene]([ExtResource("5_suj8y"), ExtResource("5_dic7s"), ExtResource("7_rd6o4")])
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rap3f")
+volume_db = -2.552
+bus = &"Music"
+
+[node name="AttackNode" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="DamageTexts" type="Node2D" parent="."]
+
 [node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("9_47xml")
 
 [node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
@@ -50,5 +73,40 @@ offset_top = 17.0
 offset_right = 173.0
 offset_bottom = 43.0
 text = "Number of Enemies:"
+
+[node name="XP" type="TextureProgressBar" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 760.0
+offset_top = 188.0
+offset_right = 785.0
+offset_bottom = 388.0
+max_value = 10.0
+value = 3.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = SubResource("CanvasTexture_my8v6")
+texture_progress = SubResource("CanvasTexture_0q6mf")
+tint_under = Color(1, 0, 1, 0)
+tint_progress = Color(0.211765, 0.184314, 1, 1)
+
+[node name="XP_Label" type="Label" parent="HUD/Control/XP"]
+layout_mode = 0
+offset_top = 200.0
+offset_right = 25.0
+offset_bottom = 226.0
+text = "XP
+"
+label_settings = SubResource("LabelSettings_6p7kf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PickupManager" type="Node" parent="."]
+script = ExtResource("10_bx4td")
+PickupScenes = Array[PackedScene]([null])
+
+[node name="StatManager" type="Node" parent="." node_paths=PackedStringArray("PickupManager", "Player")]
+script = ExtResource("11_qurlr")
+PickupManager = NodePath("../PickupManager")
+Player = NodePath("../player")
 
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="OnSpawnTimerTimeout"]

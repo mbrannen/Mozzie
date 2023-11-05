@@ -1,0 +1,116 @@
+[gd_scene load_steps=12 format=3 uid="uid://dqrtj5uuo2p4"]
+
+[ext_resource type="Script" path="res://Code/Attack/Attack.cs" id="1_4qssu"]
+[ext_resource type="Texture2D" uid="uid://ch4xolboy8qnv" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Black Bird Flying and Ground Eating Animation Frames/Zombie-Tileset---_0309_Capa-310.png" id="2_js1cg"]
+[ext_resource type="Texture2D" uid="uid://xgpff0txg0d" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Black Bird Flying and Ground Eating Animation Frames/Zombie-Tileset---_0310_Capa-311.png" id="3_7qb26"]
+[ext_resource type="Texture2D" uid="uid://ct2ly766err57" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Black Bird Flying and Ground Eating Animation Frames/Zombie-Tileset---_0311_Capa-312.png" id="4_lseja"]
+
+[sub_resource type="Gradient" id="Gradient_gj0r3"]
+offsets = PackedFloat32Array(0.376744, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a7b8h"]
+gradient = SubResource("Gradient_gj0r3")
+
+[sub_resource type="Curve" id="Curve_2u83w"]
+bake_resolution = 256
+_data = [Vector2(0, 1), 0.0, -1.19209e-07, 0, 1, Vector2(0.5, 1), -1.19209e-07, 0.0, 1, 0, Vector2(0.747525, 1), 0.0, 0.0, 0, 0, Vector2(0.9967, 0), -1.259, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fft6g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_js1cg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7qb26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_js1cg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lseja")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2p4y6"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_22j3s"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-1.5708, -1.5708, -1.5708, -1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.75, 1, 1.25, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 100), Vector2(100, 0), Vector2(0, -100), Vector2(-100, 0), Vector2(0, 100), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4rtbg"]
+_data = {
+"default": SubResource("Animation_22j3s")
+}
+
+[node name="attack_crow" type="Node2D" node_paths=PackedStringArray("CollisionArea", "Animation", "AttackTimer")]
+rotation = -1.5708
+script = ExtResource("1_4qssu")
+CollisionArea = NodePath("AnimatedSprite2D/Area2D")
+AnimationFade = SubResource("GradientTexture1D_a7b8h")
+Animation = NodePath("AnimatedSprite2D")
+AttackCurve = SubResource("Curve_2u83w")
+AttackNameDropdown = 1
+AttackTimer = NodePath("AttackTimer")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(3, 5)
+sprite_frames = SubResource("SpriteFrames_fft6g")
+frame_progress = 0.580222
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
+position = Vector2(-4.79751e-06, 0.4)
+rotation = 1.5708
+scale = Vector2(0.2, 0.333333)
+collision_layer = 2
+collision_mask = 4
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+position = Vector2(-4, -1.43051e-05)
+shape = SubResource("CircleShape2D_2p4y6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_4rtbg")
+}
+
+[connection signal="timeout" from="AttackTimer" to="." method="OnAttackTimeout"]

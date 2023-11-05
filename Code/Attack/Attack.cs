@@ -17,9 +17,9 @@ public partial class Attack : Node2D
 	[Export] public Timer AttackTimer;
 	
 	private AttackBase _attack;
-	public Player Player;
+	public Mozzie.Player Player;
 
-	public int Damage;
+	public Damage Damage;
 	public bool CanHit;
 
 	public override void _Ready()
@@ -27,26 +27,9 @@ public partial class Attack : Node2D
 		_attack =  GetAttack(AttackNameDropdown);
 		//sets the timer on the scene to match the attack's timer
 		AttackTimer.WaitTime = _attack.Timer;
-		CollisionArea.BodyEntered += OnEnemyEntered;
-		CollisionArea.AreaEntered += OnAreaEntered;
+		CollisionArea.AreaEntered += OnEnemyEntered;
 	}
 	
-	public override void _Process(double delta)
-	{
-		_percentageProgress = (_attack.Timer - AttackTimer.TimeLeft) / _attack.Timer;
-		CalculateCanHit();
-		if (!CanHit)
-			CollisionArea.Monitoring = false;
-		AdjustOpacity();
-		Move(delta);
-		
-	}
-
-	private void CalculateCanHit()
-	{
-		CanHit = SampleCurve() > 0;
-	}
-
 	private AttackBase GetAttack(AttackNames attackName)
 	{
 		var talents = new TalentModel();
@@ -62,7 +45,27 @@ public partial class Attack : Node2D
 				return null;
 		}
 	}
+	
+	public override void _Process(double delta)
+	{
+		_percentageProgress = (_attack.Timer - AttackTimer.TimeLeft) / _attack.Timer;
+		CalculateCanHit();
+		if (!CanHit)
+			CollisionArea.Monitoring = false;
+		Animate();
+		if(_attack.CanMove)
+			Move(delta);
+		else
+			FollowPlayer();
+	}
 
+	private void CalculateCanHit()
+	{
+		CanHit = SampleCurve() > 0;
+	}
+	/// <summary>
+	/// Linked to Attack timer in scene
+	/// </summary>
 	private void OnAttackTimeout()
 	{
 		GetPlayerDirection();
@@ -81,6 +84,16 @@ public partial class Attack : Node2D
 		GlobalPosition = Player.AttackRootMarker.GlobalPosition;
 	}
 
+	private void FollowPlayer()
+	{
+		if (_attack.IsRootedToPlayer)
+			GlobalPosition = Player.GlobalPosition;
+		else	
+			GlobalPosition = Player.AttackRootMarker.GlobalPosition;
+		GetPlayerDirection();
+		RotateTowardsPlayerDirection();
+	}
+
 	private void CastAttack()
 	{
 		Damage = _attack.CalculateDamage();
@@ -92,8 +105,16 @@ public partial class Attack : Node2D
 
 	}
 
+	#region Visuals
+	private void Animate()
+	{
+		AdjustOpacity();
+	}
+
 	private void RotateTowardsPlayerDirection()
 	{
+		if(!_attack.CanBeRotated)
+			return;
 		if (_direction == PlayerDirection.Up)
 			Animation.Rotation = Mathf.DegToRad(270);
 		if (_direction == PlayerDirection.Down)
@@ -109,20 +130,24 @@ public partial class Attack : Node2D
 		Animation.Modulate = new Color(Animation.Modulate.R, Animation.Modulate.G, Animation.Modulate.B, SampleCurve());
 	}
 	
+
+	#endregion
+
+	
 	private void Move(double delta)
 	{
-		var veloctity = Vector2.Zero;
+		var velocity = Vector2.Zero;
 
 		if (_direction == PlayerDirection.Up)
-			veloctity.Y = -1;
+			velocity.Y = -1;
 		if (_direction == PlayerDirection.Down)
-			veloctity.Y = 1;
+			velocity.Y = 1;
 		if (_direction == PlayerDirection.Left)
-			veloctity.X = -1;
+			velocity.X = -1;
 		if (_direction == PlayerDirection.Right)
-			veloctity.X = 1;
+			velocity.X = 1;
 
-		Position += veloctity * (Player.Speed + 50*SampleCurve())  * (float)delta;
+		Position += velocity * (Player.Speed + 50*SampleCurve())  * (float)delta;
 	}
 
 	private float SampleCurve()
@@ -130,14 +155,12 @@ public partial class Attack : Node2D
 		return AttackCurve.Sample((float)(_percentageProgress * 256)/256);
 	}
 	
-	private void OnEnemyEntered(Node2D body)
-	{
-		var enemy = body as Enemy.Enemy;
-		GD.Print($"{_attack.Name} collided with {enemy.EnemyBase.Name}");
-	}
-	private void OnAreaEntered(Area2D body)
+	private void OnEnemyEntered(Area2D body)
 	{
 		var enemy = body.GetParent<Node2D>() as Enemy.Enemy;
+
+		enemy.TakeDamage(Damage);
+		
 		GD.Print($"{_attack.Name} collided with {enemy.EnemyBase.Name}");
 	}
 	

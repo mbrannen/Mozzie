@@ -12,6 +12,7 @@ public partial class Main : Node2D
 	//TODO: Add logic for a collection of enemies to choose from and instantiate
 	[Export] public PackedScene ZombieKid { get; set; }
 	[Export] public Node EnemyNode { get; set; }
+	[Export] public Node2D NodeDamageTexts { get; set; }
 	[Export] public Label LabelNumberOfEnemies { get; set; }
 
 	public int NumberOfEnemies { get; set; }
@@ -40,6 +41,7 @@ public partial class Main : Node2D
 		//initial test of spawning
 		var zombieKid = ZombieKid.Instantiate<Enemy>();
 		var spawnLocation = Spawn.GetRandomPointInCircleAroundPosition(PlayerNode.Position, 300f);
+		zombieKid.NodeDamageTexts = NodeDamageTexts;
 		zombieKid.Position = spawnLocation;
 		zombieKid.EnemyBase.Player = _player;
 		EnemyNode.AddChild(zombieKid);
@@ -53,6 +55,7 @@ public partial class Main : Node2D
 		foreach (var location in spawnLocations)
 		{
 			var zombieKidMulti = ZombieKid.Instantiate<Enemy>();
+			zombieKidMulti.NodeDamageTexts = NodeDamageTexts;
 			zombieKidMulti.EnemyBase.Player = _player;
 			zombieKidMulti.Position = location;
 			EnemyNode.AddChild(zombieKidMulti);

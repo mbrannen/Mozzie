@@ -19,6 +19,8 @@ public interface IAttack
 
     #region Animation Properties
     public bool CanBeRotated { get; }
+    public bool CanMove { get; }
+    public bool IsRootedToPlayer { get; }
     
 
     #endregion

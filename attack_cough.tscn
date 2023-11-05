@@ -58,7 +58,7 @@ modulate = Color(0.65098, 1, 0.54902, 1)
 rotation = -1.5708
 scale = Vector2(3, 5)
 sprite_frames = SubResource("SpriteFrames_fft6g")
-frame_progress = 0.686604
+frame_progress = 0.171852
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

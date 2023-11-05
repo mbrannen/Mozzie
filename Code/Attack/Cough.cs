@@ -16,4 +16,6 @@ public sealed class Cough : AttackBase
 	public override int BaseCount => 1;
 	public override float BaseCriticalChance => 0.25f;
 	public override bool CanBeRotated => true;
+	public override bool CanMove => true;
+	public override bool IsRootedToPlayer => false;
 }

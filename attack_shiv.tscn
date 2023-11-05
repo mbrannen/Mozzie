@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://vodge405khyx"]
+
+[ext_resource type="Script" path="res://Code/Attack/Attack.cs" id="1_7a6f8"]
+[ext_resource type="Texture2D" uid="uid://d3ob64rswg3g7" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Knife Attack Animation Frames/Zombie-Tileset---_0375_Capa-376.png" id="2_xf8b3"]
+[ext_resource type="Texture2D" uid="uid://fg74odk34nfb" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Knife Attack Animation Frames/Zombie-Tileset---_0376_Capa-377.png" id="3_8i1fw"]
+[ext_resource type="Texture2D" uid="uid://cdr5ax8d0vhes" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Knife Attack Animation Frames/Zombie-Tileset---_0377_Capa-378.png" id="4_xtqf6"]
+[ext_resource type="Texture2D" uid="uid://7rygvlmhg2s0" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Knife Attack Animation Frames/Zombie-Tileset---_0378_Capa-379.png" id="5_v1naj"]
+
+[sub_resource type="Gradient" id="Gradient_gj0r3"]
+offsets = PackedFloat32Array(0.376744, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a7b8h"]
+gradient = SubResource("Gradient_gj0r3")
+
+[sub_resource type="Curve" id="Curve_2u83w"]
+bake_resolution = 256
+_data = [Vector2(0, 1), 0.0, -1.19209e-07, 0, 1, Vector2(0.5, 1), -1.19209e-07, 0.0, 1, 0, Vector2(0.50165, 0), -606.015, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fft6g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xf8b3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8i1fw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xtqf6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_v1naj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2p4y6"]
+radius = 32.0
+
+[node name="attack_shiv" type="Node2D" node_paths=PackedStringArray("CollisionArea", "Animation", "AttackTimer")]
+rotation = -1.5708
+script = ExtResource("1_7a6f8")
+CollisionArea = NodePath("Area2D")
+AnimationFade = SubResource("GradientTexture1D_a7b8h")
+Animation = NodePath("AnimatedSprite2D")
+AttackCurve = SubResource("Curve_2u83w")
+AttackNameDropdown = 2
+AttackTimer = NodePath("AttackTimer")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(3, 5)
+sprite_frames = SubResource("SpriteFrames_fft6g")
+frame_progress = 0.148828
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-4, 0)
+shape = SubResource("CircleShape2D_2p4y6")
+
+[connection signal="timeout" from="AttackTimer" to="." method="OnAttackTimeout"]

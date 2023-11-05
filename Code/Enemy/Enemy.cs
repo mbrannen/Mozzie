@@ -6,7 +6,12 @@ namespace Mozzie.Code.Enemy;
 public partial class Enemy : Node2D
 {
 	[Export] public EnemyNames EnemyNameDropdown;
+	[Export] public Node2D NodeDamageTexts;
+	[Export] public PackedScene DamageText;
+	[Export] public Marker2D MarkerDamageText;
 	public EnemyBase EnemyBase;
+
+	
 
 	public Enemy()
 	{
@@ -46,5 +51,19 @@ public partial class Enemy : Node2D
 	{
 		if(EnemyBase.IsDead)
 			QueueFree();
+	}
+
+	public void TakeDamage(Damage damage)
+	{
+		EnemyBase.TakeDamage(damage.DamageAmount);
+		RunDamageText(damage);
+	}
+
+	private void RunDamageText(Damage damage)
+	{
+		var damageText = DamageText.Instantiate<DamageText>();
+		damageText.SetDamage(damage);
+		NodeDamageTexts.AddChild(damageText);
+		damageText.Position = MarkerDamageText.GlobalPosition;
 	}
 }
