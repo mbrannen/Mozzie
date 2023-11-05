@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class PickupManager : Node
 {
     [Export] public PackedScene[] PickupScenes;
-    public List<Pickup> Pickups;
+    public List<Pickup> Pickups = new();
 
     public override void _Ready()
     {

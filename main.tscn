@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://414w0mxq3fbg"]
+[gd_scene load_steps=17 format=3 uid="uid://414w0mxq3fbg"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_3ca1n"]
 [ext_resource type="PackedScene" uid="uid://ccsqfurm3ny5c" path="res://farm_map1.tscn" id="1_6qgq3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://vodge405khyx" path="res://attack_shiv.tscn" id="5_suj8y"]
 [ext_resource type="PackedScene" uid="uid://dqrtj5uuo2p4" path="res://attack_crow.tscn" id="7_rd6o4"]
 [ext_resource type="Script" path="res://HUD.cs" id="9_47xml"]
+[ext_resource type="PackedScene" uid="uid://dhqk7ggb31b2h" path="res://pickup_experience.tscn" id="10_8rq8c"]
 [ext_resource type="Script" path="res://Code/Pickups/PickupManager.cs" id="10_bx4td"]
 [ext_resource type="Script" path="res://StatManager.cs" id="11_qurlr"]
 
@@ -57,8 +58,10 @@ bus = &"Music"
 
 [node name="DamageTexts" type="Node2D" parent="."]
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("ExperienceBar", "StatManager")]
 script = ExtResource("9_47xml")
+ExperienceBar = NodePath("Control/XP")
+StatManager = NodePath("../StatManager")
 
 [node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
@@ -102,7 +105,7 @@ vertical_alignment = 1
 
 [node name="PickupManager" type="Node" parent="."]
 script = ExtResource("10_bx4td")
-PickupScenes = Array[PackedScene]([null])
+PickupScenes = Array[PackedScene]([ExtResource("10_8rq8c")])
 
 [node name="StatManager" type="Node" parent="." node_paths=PackedStringArray("PickupManager", "Player")]
 script = ExtResource("11_qurlr")

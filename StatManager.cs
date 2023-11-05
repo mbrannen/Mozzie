@@ -2,7 +2,6 @@ using Godot;
 using Mozzie.Code.Player;
 
 namespace Mozzie;
-
 public partial class StatManager : Node
 {
 	[Export] public PickupManager PickupManager;
@@ -29,16 +28,6 @@ public partial class StatManager : Node
 		{
 			pickup.PickedUp += StatChanged;
 		}
-	}
-
-	private void InitHealth(int playerHealth)
-	{
-		
-	}
-
-	private void InitExperience(int playerExperience)
-	{
-		throw new System.NotImplementedException();
 	}
 
 	private void StatChanged(StatType statType, int value)
