@@ -10,9 +10,14 @@ public partial class HUD : CanvasLayer
 	[Export] public TextureProgressBar HealthBar;
 	[Export] public StatManager StatManager;
 
-	public override void _Ready()
+	public override void _EnterTree()
 	{
 		StatManager.ExperienceChanged += AdjustExperience;
+	}
+
+	public override void _Ready()
+	{
+		
 	}
 
 	public override void _Process(double delta)

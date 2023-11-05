@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://414w0mxq3fbg"]
+[gd_scene load_steps=18 format=3 uid="uid://414w0mxq3fbg"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_3ca1n"]
 [ext_resource type="PackedScene" uid="uid://ccsqfurm3ny5c" path="res://farm_map1.tscn" id="1_6qgq3"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dhqk7ggb31b2h" path="res://pickup_experience.tscn" id="10_8rq8c"]
 [ext_resource type="Script" path="res://Code/Pickups/PickupManager.cs" id="10_bx4td"]
 [ext_resource type="Script" path="res://StatManager.cs" id="11_qurlr"]
+[ext_resource type="Script" path="res://Code/Enemy/EnemyManager.cs" id="12_2sjof"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_my8v6"]
 
@@ -33,7 +34,7 @@ EnemyNode = NodePath("Enemies")
 NodeDamageTexts = NodePath("DamageTexts")
 LabelNumberOfEnemies = NodePath("HUD/Control/Label")
 
-[node name="Node2D" parent="." instance=ExtResource("1_6qgq3")]
+[node name="Map" parent="." instance=ExtResource("1_6qgq3")]
 scale = Vector2(3, 3)
 
 [node name="Timers" type="Node" parent="."]
@@ -57,6 +58,18 @@ bus = &"Music"
 [node name="Enemies" type="Node" parent="."]
 
 [node name="DamageTexts" type="Node2D" parent="."]
+
+[node name="PickupManager" type="Node" parent="."]
+script = ExtResource("10_bx4td")
+PickupScenes = Array[PackedScene]([ExtResource("10_8rq8c")])
+
+[node name="StatManager" type="Node" parent="." node_paths=PackedStringArray("PickupManager", "Player")]
+script = ExtResource("11_qurlr")
+PickupManager = NodePath("../PickupManager")
+Player = NodePath("../player")
+
+[node name="EnemyManager" type="Node" parent="."]
+script = ExtResource("12_2sjof")
 
 [node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("ExperienceBar", "StatManager")]
 script = ExtResource("9_47xml")
@@ -102,14 +115,5 @@ text = "XP
 label_settings = SubResource("LabelSettings_6p7kf")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="PickupManager" type="Node" parent="."]
-script = ExtResource("10_bx4td")
-PickupScenes = Array[PackedScene]([ExtResource("10_8rq8c")])
-
-[node name="StatManager" type="Node" parent="." node_paths=PackedStringArray("PickupManager", "Player")]
-script = ExtResource("11_qurlr")
-PickupManager = NodePath("../PickupManager")
-Player = NodePath("../player")
 
 [connection signal="timeout" from="Timers/SpawnTimer" to="." method="OnSpawnTimerTimeout"]

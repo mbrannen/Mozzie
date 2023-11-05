@@ -13,11 +13,6 @@ public partial class StatManager : Node
 	public delegate void HealthChangedDelegate(int value);
 	public event HealthChangedDelegate HealthChanged;
 
-	public override void _Process(double delta)
-	{
-		
-	}
-
 	public override void _Ready()
 	{
 		//emit signal to init the values
@@ -28,6 +23,11 @@ public partial class StatManager : Node
 		{
 			pickup.PickedUp += StatChanged;
 		}
+	}
+	
+	public override void _Process(double delta)
+	{
+		
 	}
 
 	private void StatChanged(StatType statType, int value)
