@@ -8,8 +8,6 @@ public partial class Main : Node2D
 {
 	[Export]
 	public Node2D PlayerNode { get; set; }
-	
-	//TODO: Add logic for a collection of enemies to choose from and instantiate
 	[Export] public PackedScene ZombieKid { get; set; }
 	[Export] public Node EnemyNode { get; set; }
 	[Export] public Node2D NodeDamageTexts { get; set; }

@@ -10,12 +10,10 @@ public partial class Enemy : Node2D
 	[Export] public PackedScene DamageText;
 	[Export] public Marker2D MarkerDamageText;
 	public EnemyBase EnemyBase;
-
-	public Enemy()
-	{
-		//_EnterTree();
-		//EnemyBase = GetEnemy(EnemyTypeDropdown);
-	}
+	
+	public delegate void EnemyDiedDelegate(EnemyType type, Vector2 position);
+	public event EnemyDiedDelegate EnemyDied;
+	
 
 	public override void _EnterTree()
 	{
@@ -53,8 +51,14 @@ public partial class Enemy : Node2D
 
 	private void DetermineIfDead()
 	{
-		if(EnemyBase.IsDead)
-			QueueFree();
+		if (EnemyBase.IsDead)
+			IsDead();
+	}
+
+	private void IsDead()
+	{
+		EnemyDied?.Invoke(EnemyTypeDropdown, GlobalPosition);
+		QueueFree();
 	}
 
 	public void TakeDamage(Damage damage)

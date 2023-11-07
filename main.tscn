@@ -62,9 +62,10 @@ bus = &"Music"
 
 [node name="DamageTexts" type="Node2D" parent="."]
 
-[node name="PickupManager" type="Node" parent="."]
+[node name="PickupManager" type="Node2D" parent="." node_paths=PackedStringArray("EnemyManager")]
 script = ExtResource("10_bx4td")
 PickupScenes = Array[PackedScene]([ExtResource("10_8rq8c")])
+EnemyManager = NodePath("../EnemyManager")
 
 [node name="StatManager" type="Node" parent="." node_paths=PackedStringArray("PickupManager", "Player")]
 script = ExtResource("11_qurlr")
@@ -106,8 +107,7 @@ offset_left = 760.0
 offset_top = 188.0
 offset_right = 785.0
 offset_bottom = 388.0
-max_value = 10.0
-value = 3.0
+value = 30.0
 fill_mode = 3
 nine_patch_stretch = true
 texture_under = SubResource("CanvasTexture_my8v6")
@@ -125,6 +125,3 @@ text = "XP
 label_settings = SubResource("LabelSettings_6p7kf")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="timeout" from="Timers/ZombieKidSpawnTimer" to="." method="OnSpawnTimerTimeout"]
-[connection signal="timeout" from="Timers/ZombieKidMultiSpawnTimer" to="." method="OnSpawnTimerTimeout"]

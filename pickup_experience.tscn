@@ -8,10 +8,12 @@ size = Vector2(6.66667, 9.33333)
 
 [node name="pickup_experience" type="Node2D" node_paths=PackedStringArray("CollisionArea")]
 script = ExtResource("1_by3nb")
+StatType = 1
 CollisionArea = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(3, 3)
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_xioaw")

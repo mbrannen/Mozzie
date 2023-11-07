@@ -1,21 +1,34 @@
 using Godot;
 using System;
+using Mozzie;
 using Mozzie.Code.Pickups;
 using Mozzie.Code.Player;
 
-public partial class Pickup : Node
+public partial class Pickup : Node2D
 {
+	[Export] public StatType StatType;
 	[Export] public Area2D CollisionArea;
-	private PickupBase _pickup;
-	private StatType _statType;
+	public PickupBase _pickup;
+	
 	
 	public delegate void PickedUpDelegate(StatType statType,int value);
 
 	public event PickedUpDelegate PickedUp;
 
+	public override void _EnterTree()
+	{
+		_pickup = GetPickup(StatType);
+		if (!_pickup.IsSpawned())
+		{
+			QueueFree();
+			return;
+		}
+		CollisionArea.AreaEntered += OnPlayerEntered;
+	}
+
 	public override void _Ready()
 	{
-		_pickup = GetPickup(_statType);
+		_pickup = GetPickup(StatType);
 	}
 	
 	
@@ -40,14 +53,11 @@ public partial class Pickup : Node
 
 	private void OnPlayerEntered(Area2D body)
 	{
-		if (body.GetType() == typeof(Mozzie.Player))
-		{
 			OnPickedUp(_pickup.Value);
 			QueueFree();
-		}
 	}
 	private void OnPickedUp(int value)
 	{
-		PickedUp?.Invoke(_statType, value);
+		PickedUp?.Invoke(StatType, value);
 	}
 }

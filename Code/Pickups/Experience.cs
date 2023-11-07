@@ -7,5 +7,5 @@ public class Experience : PickupBase
 {
     public override StatType StatType => StatType.Experience;
     public override int Value => 10;
-    
+    public override float Chance => 0.5f;
 }

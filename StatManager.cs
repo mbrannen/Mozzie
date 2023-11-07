@@ -13,16 +13,21 @@ public partial class StatManager : Node
 	public delegate void HealthChangedDelegate(int value);
 	public event HealthChangedDelegate HealthChanged;
 
+	public override void _EnterTree()
+	{
+		PickupManager.NotifyPickedUp += PickupManagerOnNotifyPickedUp;
+	}
+
+	private void PickupManagerOnNotifyPickedUp(StatType type, int value)
+	{
+		StatChanged(type, value);
+	}
+
 	public override void _Ready()
 	{
 		//emit signal to init the values
 		ExperienceChanged?.Invoke(Player.Experience);
 		HealthChanged?.Invoke(Player.Health);
-		
-		foreach (var pickup in PickupManager.Pickups)
-		{
-			pickup.PickedUp += StatChanged;
-		}
 	}
 	
 	public override void _Process(double delta)

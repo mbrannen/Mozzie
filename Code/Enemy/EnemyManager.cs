@@ -23,6 +23,9 @@ public partial class EnemyManager : Node2D
 	private const int INDEX_ZOMBIEKID = 0;
 	private const int WAVEQUANTITY_ZOMBIEKID = 20;
 	
+	public delegate void NotifyDeadDelegate(EnemyType type, Vector2 position);
+	public event NotifyDeadDelegate NotifyDead;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _EnterTree()
 	{
@@ -38,6 +41,7 @@ public partial class EnemyManager : Node2D
 			var zombieKid = EnemyScenes[INDEX_ZOMBIEKID].Instantiate<Enemy>();
 			zombieKid.NodeDamageTexts = NodeDamageTexts;
 			zombieKid.Position = location;
+			zombieKid.EnemyDied += OnEnemyDied;
 			AddChild(zombieKid);
 			zombieKid.EnemyBase.Player = _player;
 		}
@@ -47,10 +51,17 @@ public partial class EnemyManager : Node2D
 	{
 		var zombieKid = EnemyScenes[INDEX_ZOMBIEKID].Instantiate<Enemy>();
 		var spawnLocation = Spawn.GetRandomPointInCircleAroundPosition(PlayerNode.Position, 450f);
-		zombieKid.NodeDamageTexts = NodeDamageTexts;
+		zombieKid.NodeDamageTexts = NodeDamageTexts; //TODO Move this to an event based system
 		zombieKid.Position = spawnLocation;
+		zombieKid.EnemyDied += OnEnemyDied;
 		AddChild(zombieKid);
 		zombieKid.EnemyBase.Player = _player;
+	}
+
+	private void OnEnemyDied(EnemyType type, Vector2 position)
+	{
+		//TODO: Update score of some kind of tracker here as well
+		NotifyDead?.Invoke(type, position);
 	}
 
 	public override void _Ready()
