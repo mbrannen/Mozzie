@@ -5,22 +5,26 @@ namespace Mozzie.Code.Enemy;
 
 public partial class Enemy : Node2D
 {
-	[Export] public EnemyNames EnemyNameDropdown;
+	[Export] public EnemyType EnemyTypeDropdown;
 	[Export] public Node2D NodeDamageTexts;
 	[Export] public PackedScene DamageText;
 	[Export] public Marker2D MarkerDamageText;
 	public EnemyBase EnemyBase;
 
-	
-
 	public Enemy()
 	{
-		EnemyBase = GetEnemy(EnemyNameDropdown);
+		//_EnterTree();
+		//EnemyBase = GetEnemy(EnemyTypeDropdown);
+	}
+
+	public override void _EnterTree()
+	{
+		EnemyBase = GetEnemy(EnemyTypeDropdown);
 	}
 
 	public override void _Ready()
 	{
-		
+		EnemyBase = GetEnemy(EnemyTypeDropdown);
 		EnemyBase.Position = Position;
 	}
 	
@@ -31,11 +35,11 @@ public partial class Enemy : Node2D
 		DetermineIfDead();
 	}
 
-	private EnemyBase GetEnemy(EnemyNames enemyName)
+	private EnemyBase GetEnemy(EnemyType enemyType)
 	{
-		switch (enemyName)
+		switch (enemyType)
 		{
-			case EnemyNames.ZombieKid:
+			case EnemyType.ZombieKid:
 				return new ZombieKid();
 			default:
 				return null;

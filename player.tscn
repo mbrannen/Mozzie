@@ -135,6 +135,7 @@ AttackScenes = Array[PackedScene]([ExtResource("2_hr1us"), ExtResource("3_c2mu8"
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(3, 3)
+collision_mask = 12
 
 [node name="AnimatedSprite2D_player" type="AnimatedSprite2D" parent="Area2D"]
 z_index = 1

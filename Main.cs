@@ -33,38 +33,6 @@ public partial class Main : Node2D
 	{
 	}
 	
-	//Timers - set to spawn a zombie kid every 1s
-	//TODO: Move this to some sort of enemy spawning manager
-	private void OnSpawnTimerTimeout()
-	{
-		#region SingleSpaw
-		//initial test of spawning
-		var zombieKid = ZombieKid.Instantiate<Enemy>();
-		var spawnLocation = Spawn.GetRandomPointInCircleAroundPosition(PlayerNode.Position, 300f);
-		zombieKid.NodeDamageTexts = NodeDamageTexts;
-		zombieKid.Position = spawnLocation;
-		zombieKid.EnemyBase.Player = _player;
-		EnemyNode.AddChild(zombieKid);
-		UpdateLabelForNumberOfEnemies(1);
-		
-		#endregion
-
-		#region MultiSpawn
-		// initial multispawn testing
-		var spawnLocations = Spawn.GetPointsInCircleAroundPosition(PlayerNode.Position, 500f, 3);
-		foreach (var location in spawnLocations)
-		{
-			var zombieKidMulti = ZombieKid.Instantiate<Enemy>();
-			zombieKidMulti.NodeDamageTexts = NodeDamageTexts;
-			zombieKidMulti.EnemyBase.Player = _player;
-			zombieKidMulti.Position = location;
-			EnemyNode.AddChild(zombieKidMulti);
-			UpdateLabelForNumberOfEnemies(1);
-		}
-
-		#endregion
-
-	}
 	//TODO: Move this to some sort of UI Manager
 	private void UpdateLabelForNumberOfEnemies(int numberToIncrement)
 	{

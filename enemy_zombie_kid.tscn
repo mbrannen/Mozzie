@@ -72,12 +72,13 @@ animations = [{
 [node name="ZombieKid" type="Node2D" node_paths=PackedStringArray("MarkerDamageText")]
 scale = Vector2(3, 3)
 script = ExtResource("1_bstpd")
+EnemyTypeDropdown = 1
 DamageText = ExtResource("2_8sjdd")
 MarkerDamageText = NodePath("DamageTextMarker")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_lmqnv")

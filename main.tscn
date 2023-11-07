@@ -26,11 +26,10 @@ font_names = PackedStringArray("Lucida Console")
 line_spacing = 0.0
 font = SubResource("SystemFont_lub0g")
 
-[node name="main" type="Node2D" node_paths=PackedStringArray("PlayerNode", "EnemyNode", "NodeDamageTexts", "LabelNumberOfEnemies")]
+[node name="main" type="Node2D" node_paths=PackedStringArray("PlayerNode", "NodeDamageTexts", "LabelNumberOfEnemies")]
 script = ExtResource("1_3ca1n")
 PlayerNode = NodePath("player")
 ZombieKid = ExtResource("4_idisb")
-EnemyNode = NodePath("Enemies")
 NodeDamageTexts = NodePath("DamageTexts")
 LabelNumberOfEnemies = NodePath("HUD/Control/Label")
 
@@ -39,12 +38,16 @@ scale = Vector2(3, 3)
 
 [node name="Timers" type="Node" parent="."]
 
-[node name="SpawnTimer" type="Timer" parent="Timers"]
+[node name="ZombieKidSpawnTimer" type="Timer" parent="Timers"]
 wait_time = 2.0
 autostart = true
 
+[node name="ZombieKidMultiSpawnTimer" type="Timer" parent="Timers"]
+wait_time = 20.0
+autostart = true
+
 [node name="player" parent="." node_paths=PackedStringArray("AttackNode") instance=ExtResource("2_qhnmi")]
-position = Vector2(400, 301)
+position = Vector2(619, 471)
 AttackNode = NodePath("../AttackNode")
 AttackScenes = Array[PackedScene]([ExtResource("5_suj8y"), ExtResource("5_dic7s"), ExtResource("7_rd6o4")])
 
@@ -55,7 +58,7 @@ bus = &"Music"
 
 [node name="AttackNode" type="Node2D" parent="."]
 
-[node name="Enemies" type="Node" parent="."]
+[node name="Enemies" type="Node2D" parent="."]
 
 [node name="DamageTexts" type="Node2D" parent="."]
 
@@ -68,8 +71,15 @@ script = ExtResource("11_qurlr")
 PickupManager = NodePath("../PickupManager")
 Player = NodePath("../player")
 
-[node name="EnemyManager" type="Node" parent="."]
+[node name="EnemyManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerNode", "EnemyNode", "NodeDamageTexts", "LabelNumberOfEnemies", "ZombieKidSpawnTimer", "ZombieKidMultiSpawnTimer")]
 script = ExtResource("12_2sjof")
+PlayerNode = NodePath("../player")
+EnemyScenes = Array[PackedScene]([ExtResource("4_idisb")])
+EnemyNode = NodePath("../Enemies")
+NodeDamageTexts = NodePath("../DamageTexts")
+LabelNumberOfEnemies = NodePath("../HUD/Control/Label")
+ZombieKidSpawnTimer = NodePath("../Timers/ZombieKidSpawnTimer")
+ZombieKidMultiSpawnTimer = NodePath("../Timers/ZombieKidMultiSpawnTimer")
 
 [node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("ExperienceBar", "StatManager")]
 script = ExtResource("9_47xml")
@@ -116,4 +126,5 @@ label_settings = SubResource("LabelSettings_6p7kf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="timeout" from="Timers/SpawnTimer" to="." method="OnSpawnTimerTimeout"]
+[connection signal="timeout" from="Timers/ZombieKidSpawnTimer" to="." method="OnSpawnTimerTimeout"]
+[connection signal="timeout" from="Timers/ZombieKidMultiSpawnTimer" to="." method="OnSpawnTimerTimeout"]

@@ -6,6 +6,7 @@ public abstract class EnemyBase : IEnemy
 {
     public virtual string Name => "Not Implemented";
     public virtual string Description => "Not Implemented";
+    public abstract EnemyType Type { get; }
     public bool IsDead { get; set; } = false;
     public virtual int BaseHealth => 0;
     public int Health { get; set; }
@@ -39,7 +40,8 @@ public abstract class EnemyBase : IEnemy
     }
 }
 
-public enum EnemyNames
+public enum EnemyType
 {
+    Null,
     ZombieKid
 }

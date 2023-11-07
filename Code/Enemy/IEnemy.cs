@@ -1,10 +1,12 @@
 using Godot;
 using System;
+using Mozzie.Code.Enemy;
 
 public interface IEnemy
 {
     public string Name { get; }
     public string Description { get; }
+    public EnemyType Type { get; }
     public bool IsDead { get; set; }
     public int BaseHealth { get; }
     public int Health { get; set; }
