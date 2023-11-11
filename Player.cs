@@ -12,7 +12,7 @@ public partial class Player : Node2D, IPlayer
 	[Export]
 	public int Speed {get; set;} = 200;
 	public string Description { get; set; }
-	public int Health { get; set; } = 10;
+	public int Health { get; set; } = 100;
 	public int Experience { get; set; }
 	[ExportGroup("Visuals")]
 	[Export] public AnimatedSprite2D PlayerSprite;

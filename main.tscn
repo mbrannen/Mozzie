@@ -1,13 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://414w0mxq3fbg"]
+[gd_scene load_steps=17 format=3 uid="uid://414w0mxq3fbg"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_3ca1n"]
 [ext_resource type="PackedScene" uid="uid://ccsqfurm3ny5c" path="res://farm_map1.tscn" id="1_6qgq3"]
 [ext_resource type="PackedScene" uid="uid://by441apmltlxd" path="res://player.tscn" id="2_qhnmi"]
 [ext_resource type="AudioStream" uid="uid://btb3ws4c52er5" path="res://Music/Free Horror Music Pack/20. A hollow Call.wav" id="3_rap3f"]
 [ext_resource type="PackedScene" uid="uid://oy2jt41gisbe" path="res://enemy_zombie_kid.tscn" id="4_idisb"]
-[ext_resource type="PackedScene" uid="uid://c2h38x7pwefkp" path="res://attack_cough.tscn" id="5_dic7s"]
-[ext_resource type="PackedScene" uid="uid://vodge405khyx" path="res://attack_shiv.tscn" id="5_suj8y"]
-[ext_resource type="PackedScene" uid="uid://dqrtj5uuo2p4" path="res://attack_crow.tscn" id="7_rd6o4"]
 [ext_resource type="Script" path="res://HUD.cs" id="9_47xml"]
 [ext_resource type="PackedScene" uid="uid://dhqk7ggb31b2h" path="res://pickup_experience.tscn" id="10_8rq8c"]
 [ext_resource type="Script" path="res://Code/Pickups/PickupManager.cs" id="10_bx4td"]
@@ -25,6 +22,10 @@ font_names = PackedStringArray("Lucida Console")
 [sub_resource type="LabelSettings" id="LabelSettings_6p7kf"]
 line_spacing = 0.0
 font = SubResource("SystemFont_lub0g")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_n4o5b"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qro62"]
 
 [node name="main" type="Node2D" node_paths=PackedStringArray("PlayerNode", "NodeDamageTexts", "LabelNumberOfEnemies")]
 script = ExtResource("1_3ca1n")
@@ -49,7 +50,7 @@ autostart = true
 [node name="player" parent="." node_paths=PackedStringArray("AttackNode") instance=ExtResource("2_qhnmi")]
 position = Vector2(619, 471)
 AttackNode = NodePath("../AttackNode")
-AttackScenes = Array[PackedScene]([ExtResource("5_suj8y"), ExtResource("5_dic7s"), ExtResource("7_rd6o4")])
+AttackScenes = Array[PackedScene]([])
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_rap3f")
@@ -67,9 +68,10 @@ script = ExtResource("10_bx4td")
 PickupScenes = Array[PackedScene]([ExtResource("10_8rq8c")])
 EnemyManager = NodePath("../EnemyManager")
 
-[node name="StatManager" type="Node" parent="." node_paths=PackedStringArray("PickupManager", "Player")]
+[node name="StatManager" type="Node" parent="." node_paths=PackedStringArray("PickupManager", "EnemyManager", "Player")]
 script = ExtResource("11_qurlr")
 PickupManager = NodePath("../PickupManager")
+EnemyManager = NodePath("../EnemyManager")
 Player = NodePath("../player")
 
 [node name="EnemyManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerNode", "EnemyNode", "NodeDamageTexts", "LabelNumberOfEnemies", "ZombieKidSpawnTimer", "ZombieKidMultiSpawnTimer")]
@@ -82,9 +84,10 @@ LabelNumberOfEnemies = NodePath("../HUD/Control/Label")
 ZombieKidSpawnTimer = NodePath("../Timers/ZombieKidSpawnTimer")
 ZombieKidMultiSpawnTimer = NodePath("../Timers/ZombieKidMultiSpawnTimer")
 
-[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("ExperienceBar", "StatManager")]
+[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("ExperienceBar", "HealthBar", "StatManager")]
 script = ExtResource("9_47xml")
 ExperienceBar = NodePath("Control/XP")
+HealthBar = NodePath("Control/Health")
 StatManager = NodePath("../StatManager")
 
 [node name="Control" type="Control" parent="HUD"]
@@ -125,3 +128,19 @@ text = "XP
 label_settings = SubResource("LabelSettings_6p7kf")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Health" type="TextureProgressBar" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 360.0
+offset_top = 257.0
+offset_right = 440.0
+offset_bottom = 264.0
+pivot_offset = Vector2(40, 8)
+value = 100.0
+nine_patch_stretch = true
+texture_under = SubResource("CanvasTexture_n4o5b")
+texture_progress = SubResource("CanvasTexture_qro62")
+tint_under = Color(0, 0, 0, 1)
+tint_over = Color(0, 0, 0, 1)
+tint_progress = Color(1, 0, 0, 1)

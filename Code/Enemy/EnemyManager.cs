@@ -26,6 +26,9 @@ public partial class EnemyManager : Node2D
 	public delegate void NotifyDeadDelegate(EnemyType type, Vector2 position);
 	public event NotifyDeadDelegate NotifyDead;
 	
+	public delegate void NotifyPlayerDamageDelegate(int damage);
+	public event NotifyPlayerDamageDelegate NotifyPlayerDamaged;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _EnterTree()
 	{
@@ -42,6 +45,7 @@ public partial class EnemyManager : Node2D
 			zombieKid.NodeDamageTexts = NodeDamageTexts;
 			zombieKid.Position = location;
 			zombieKid.EnemyDied += OnEnemyDied;
+			zombieKid.DamagedPlayer += OnDamagedPlayer;
 			AddChild(zombieKid);
 			zombieKid.EnemyBase.Player = _player;
 		}
@@ -54,8 +58,14 @@ public partial class EnemyManager : Node2D
 		zombieKid.NodeDamageTexts = NodeDamageTexts; //TODO Move this to an event based system
 		zombieKid.Position = spawnLocation;
 		zombieKid.EnemyDied += OnEnemyDied;
+		zombieKid.DamagedPlayer += OnDamagedPlayer;
 		AddChild(zombieKid);
 		zombieKid.EnemyBase.Player = _player;
+	}
+	
+	private void OnDamagedPlayer(int damage)
+	{
+		NotifyPlayerDamaged?.Invoke(damage);
 	}
 
 	private void OnEnemyDied(EnemyType type, Vector2 position)

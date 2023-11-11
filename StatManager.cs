@@ -1,10 +1,12 @@
 using Godot;
+using Mozzie.Code.Enemy;
 using Mozzie.Code.Player;
 
 namespace Mozzie;
 public partial class StatManager : Node
 {
 	[Export] public PickupManager PickupManager;
+	[Export] public EnemyManager EnemyManager;
 	[Export] public Player Player;
 	
 	public delegate void ExperienceChangedDelegate(int value);
@@ -16,6 +18,12 @@ public partial class StatManager : Node
 	public override void _EnterTree()
 	{
 		PickupManager.NotifyPickedUp += PickupManagerOnNotifyPickedUp;
+		EnemyManager.NotifyPlayerDamaged += EnemyManagerOnNotifyPlayerDamaged;
+	}
+
+	private void EnemyManagerOnNotifyPlayerDamaged(int damage)
+	{
+		StatChanged(StatType.Health, -damage);
 	}
 
 	private void PickupManagerOnNotifyPickedUp(StatType type, int value)

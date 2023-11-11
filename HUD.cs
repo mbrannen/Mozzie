@@ -13,6 +13,7 @@ public partial class HUD : CanvasLayer
 	public override void _EnterTree()
 	{
 		StatManager.ExperienceChanged += AdjustExperience;
+		StatManager.HealthChanged += AdjustHealth;
 	}
 
 	public override void _Ready()
@@ -28,5 +29,10 @@ public partial class HUD : CanvasLayer
 	private void AdjustExperience(int value)
 	{
 		ExperienceBar.Value = value;
+	}
+	
+	private void AdjustHealth(int value)
+	{
+		HealthBar.Value = value;
 	}
 }
