@@ -1,16 +1,26 @@
-[gd_scene load_steps=18 format=3 uid="uid://414w0mxq3fbg"]
+[gd_scene load_steps=20 format=3 uid="uid://414w0mxq3fbg"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_3ca1n"]
 [ext_resource type="PackedScene" uid="uid://ccsqfurm3ny5c" path="res://farm_map1.tscn" id="1_6qgq3"]
 [ext_resource type="PackedScene" uid="uid://by441apmltlxd" path="res://player.tscn" id="2_qhnmi"]
 [ext_resource type="AudioStream" uid="uid://btb3ws4c52er5" path="res://Music/Free Horror Music Pack/20. A hollow Call.wav" id="3_rap3f"]
 [ext_resource type="PackedScene" uid="uid://oy2jt41gisbe" path="res://enemy_zombie_kid.tscn" id="4_idisb"]
+[ext_resource type="PackedScene" uid="uid://vodge405khyx" path="res://attack_shiv.tscn" id="5_1gfq4"]
 [ext_resource type="PackedScene" uid="uid://c2h38x7pwefkp" path="res://attack_cough.tscn" id="5_xqplt"]
 [ext_resource type="Script" path="res://HUD.cs" id="9_47xml"]
 [ext_resource type="PackedScene" uid="uid://dhqk7ggb31b2h" path="res://pickup_experience.tscn" id="10_8rq8c"]
 [ext_resource type="Script" path="res://Code/Pickups/PickupManager.cs" id="10_bx4td"]
 [ext_resource type="Script" path="res://StatManager.cs" id="11_qurlr"]
 [ext_resource type="Script" path="res://Code/Enemy/EnemyManager.cs" id="12_2sjof"]
+
+[sub_resource type="Curve" id="Curve_2wn7c"]
+min_value = 10.0
+max_value = 1000.0
+bake_resolution = 30
+_data = [Vector2(0, 10), 0.0, 1386.0, 0, 0, Vector2(0.25, 158.5), 0.0, 0.0, 0, 0, Vector2(0.8, 604), 1205.86, 1205.86, 0, 0, Vector2(1, 1000), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_my8v6"]
 
@@ -51,7 +61,7 @@ autostart = true
 [node name="player" parent="." node_paths=PackedStringArray("AttackNode") groups=["Player"] instance=ExtResource("2_qhnmi")]
 position = Vector2(619, 471)
 AttackNode = NodePath("../AttackNode")
-AttackScenes = Array[PackedScene]([ExtResource("5_xqplt")])
+AttackScenes = Array[PackedScene]([ExtResource("5_1gfq4"), ExtResource("5_xqplt")])
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_rap3f")
@@ -73,6 +83,7 @@ EnemyManager = NodePath("../EnemyManager")
 script = ExtResource("11_qurlr")
 PickupManager = NodePath("../PickupManager")
 EnemyManager = NodePath("../EnemyManager")
+LevelCurve = SubResource("Curve_2wn7c")
 Player = NodePath("../player")
 
 [node name="EnemyManager" type="Node2D" parent="." node_paths=PackedStringArray("PlayerNode", "EnemyNode", "NodeDamageTexts", "LabelNumberOfEnemies", "ZombieKidSpawnTimer", "ZombieKidMultiSpawnTimer")]
@@ -85,10 +96,11 @@ LabelNumberOfEnemies = NodePath("../HUD/Control/Label")
 ZombieKidSpawnTimer = NodePath("../Timers/ZombieKidSpawnTimer")
 ZombieKidMultiSpawnTimer = NodePath("../Timers/ZombieKidMultiSpawnTimer")
 
-[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("ExperienceBar", "HealthBar", "StatManager")]
+[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("ExperienceBar", "HealthBar", "LevelLabel", "StatManager")]
 script = ExtResource("9_47xml")
 ExperienceBar = NodePath("Control/XP")
 HealthBar = NodePath("Control/Health")
+LevelLabel = NodePath("Control/XP/Level_Label")
 StatManager = NodePath("../StatManager")
 
 [node name="Control" type="Control" parent="HUD"]
@@ -125,6 +137,17 @@ offset_top = 200.0
 offset_right = 25.0
 offset_bottom = 226.0
 text = "XP
+"
+label_settings = SubResource("LabelSettings_6p7kf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level_Label" type="Label" parent="HUD/Control/XP"]
+layout_mode = 0
+offset_top = 218.0
+offset_right = 25.0
+offset_bottom = 244.0
+text = "1
 "
 label_settings = SubResource("LabelSettings_6p7kf")
 horizontal_alignment = 1

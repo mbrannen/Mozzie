@@ -13,8 +13,11 @@ public partial class Player : Node2D, IPlayer
 	[Export]
 	public int Speed {get; set;} = 200;
 	public string Description { get; set; }
+
+	public byte Level { get; set; } = 1; //0-255
+	public const byte MaxLevel = 30;
 	public int Health { get; set; } = 100;
-	public int Experience { get; set; }
+	public int Experience { get; set; } //default 0
 	[ExportGroup("Visuals")]
 	[Export] public AnimatedSprite2D PlayerSprite;
 	[Export] public GpuParticles2D PlayerDustParticles;
