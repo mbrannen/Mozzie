@@ -1,5 +1,6 @@
 using Godot;
 using Mozzie.Code.Attack;
+using Mozzie.Code.Utility;
 
 namespace Mozzie.Code.Enemy;
 
@@ -24,7 +25,7 @@ public partial class Enemy : Node2D
 	public override void _EnterTree()
 	{
 		EnemyBase = GetEnemy(EnemyTypeDropdown);
-		CollisionArea.AreaEntered += OnPlayerEntered;
+		CollisionArea.AreaEntered += OnBodyEntered;
 		StateTimer.Timeout += StateTimerOnTimeout;
 		
 	}
@@ -93,13 +94,18 @@ public partial class Enemy : Node2D
 		damageText.Position = MarkerDamageText.GlobalPosition;
 	}
 
-	private void OnPlayerEntered(Area2D body)
+	private void OnBodyEntered(Area2D body)
 	{
-		OnDamagePlayer(EnemyBase.Damage);
-		if (EnemyBase.State == EnemyState.Pursuit)
+		var parent = body.GetParent();
+
+		if (parent.IsInGroup(Groups.PLAYER))
 		{
-			EnemyBase.ChangePursuitState();
-			StateTimer.Start();	
+			OnDamagePlayer(EnemyBase.Damage);
+			if (EnemyBase.State == EnemyState.Pursuit)
+			{
+				EnemyBase.ChangePursuitState();
+				StateTimer.Start();	
+			}
 		}
 	}
 

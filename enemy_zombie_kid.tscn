@@ -94,5 +94,5 @@ position = Vector2(-5.66667, -14.3333)
 gizmo_extents = 22.9
 
 [node name="StateTimer" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.25
 one_shot = true

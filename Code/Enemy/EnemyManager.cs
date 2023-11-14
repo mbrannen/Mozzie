@@ -46,6 +46,7 @@ public partial class EnemyManager : Node2D
 			zombieKid.Position = location;
 			zombieKid.EnemyDied += OnEnemyDied;
 			zombieKid.DamagedPlayer += OnDamagedPlayer;
+			zombieKid.AddToGroup(Groups.ENEMY);
 			AddChild(zombieKid);
 			zombieKid.EnemyBase.Player = _player;
 		}
@@ -57,6 +58,7 @@ public partial class EnemyManager : Node2D
 		var spawnLocation = Spawn.GetRandomPointInCircleAroundPosition(PlayerNode.Position, 450f);
 		zombieKid.NodeDamageTexts = NodeDamageTexts; //TODO Move this to an event based system
 		zombieKid.Position = spawnLocation;
+		zombieKid.AddToGroup(Groups.ENEMY);
 		zombieKid.EnemyDied += OnEnemyDied;
 		zombieKid.DamagedPlayer += OnDamagedPlayer;
 		AddChild(zombieKid);

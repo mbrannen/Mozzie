@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Godot;
 using Mozzie.Code.Attack;
+using Mozzie.Code.Utility;
 
 namespace Mozzie;
 
@@ -33,10 +34,14 @@ public partial class Player : Node2D, IPlayer
 	public const float ATTACKMARKER_OFFSET = 16f;
 
 	// Called when the node enters the scene tree for the first time.
+	public override void _EnterTree()
+	{
+		
+	}
 	public override void _Ready()
 	{
 		ScreenSize = GetViewportRect().Size;
-		
+		AddToGroup(Groups.PLAYER);	
 		//load the attack scenes
 		if (AttackScenes is { Length: > 0 }) 
 			Attacks = new Attack[AttackScenes.Length];

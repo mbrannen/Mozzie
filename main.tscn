@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://414w0mxq3fbg"]
+[gd_scene load_steps=18 format=3 uid="uid://414w0mxq3fbg"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_3ca1n"]
 [ext_resource type="PackedScene" uid="uid://ccsqfurm3ny5c" path="res://farm_map1.tscn" id="1_6qgq3"]
 [ext_resource type="PackedScene" uid="uid://by441apmltlxd" path="res://player.tscn" id="2_qhnmi"]
 [ext_resource type="AudioStream" uid="uid://btb3ws4c52er5" path="res://Music/Free Horror Music Pack/20. A hollow Call.wav" id="3_rap3f"]
 [ext_resource type="PackedScene" uid="uid://oy2jt41gisbe" path="res://enemy_zombie_kid.tscn" id="4_idisb"]
+[ext_resource type="PackedScene" uid="uid://c2h38x7pwefkp" path="res://attack_cough.tscn" id="5_xqplt"]
 [ext_resource type="Script" path="res://HUD.cs" id="9_47xml"]
 [ext_resource type="PackedScene" uid="uid://dhqk7ggb31b2h" path="res://pickup_experience.tscn" id="10_8rq8c"]
 [ext_resource type="Script" path="res://Code/Pickups/PickupManager.cs" id="10_bx4td"]
@@ -47,10 +48,10 @@ autostart = true
 wait_time = 20.0
 autostart = true
 
-[node name="player" parent="." node_paths=PackedStringArray("AttackNode") instance=ExtResource("2_qhnmi")]
+[node name="player" parent="." node_paths=PackedStringArray("AttackNode") groups=["Player"] instance=ExtResource("2_qhnmi")]
 position = Vector2(619, 471)
 AttackNode = NodePath("../AttackNode")
-AttackScenes = Array[PackedScene]([])
+AttackScenes = Array[PackedScene]([ExtResource("5_xqplt")])
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_rap3f")
