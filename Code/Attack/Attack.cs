@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using Mozzie.Code.Enemy;
+using Mozzie.Code.Player;
 using Mozzie.Code.Talents;
 
 namespace Mozzie.Code.Attack;
@@ -18,6 +19,7 @@ public partial class Attack : Node2D
 	
 	private AttackBase _attack;
 	public Mozzie.Player Player;
+	private StatManager _statManager = StatManager.Instance;
 
 	public Damage Damage;
 	public bool CanHit;
@@ -147,7 +149,7 @@ public partial class Attack : Node2D
 		if (_direction == PlayerDirection.Right)
 			velocity.X = 1;
 
-		Position += velocity * (Player.Speed + 50*SampleCurve())  * (float)delta;
+		Position += velocity * (_statManager.GetStat<int>(StatType.Speed) + 50*SampleCurve())  * (float)delta;
 	}
 
 	private float SampleCurve()

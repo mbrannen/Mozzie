@@ -59,7 +59,7 @@ wait_time = 20.0
 autostart = true
 
 [node name="player" parent="." node_paths=PackedStringArray("AttackNode") groups=["Player"] instance=ExtResource("2_qhnmi")]
-position = Vector2(619, 471)
+position = Vector2(400, 300)
 AttackNode = NodePath("../AttackNode")
 AttackScenes = Array[PackedScene]([ExtResource("5_1gfq4"), ExtResource("5_xqplt")])
 

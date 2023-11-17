@@ -2,7 +2,12 @@ namespace Mozzie.Code.Player;
 
 public enum StatType
 {
-    Null,
-    Experience,
-    Health
+	Null,
+	Level,
+	Experience,
+	Health,
+	Speed,
+	Damage,
+	Range,
+	Defense
 }

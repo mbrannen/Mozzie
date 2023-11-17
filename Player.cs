@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Godot;
 using Mozzie.Code.Attack;
+using Mozzie.Code.Player;
 using Mozzie.Code.Utility;
 
 namespace Mozzie;
@@ -11,13 +12,24 @@ public partial class Player : Node2D, IPlayer
 	public delegate void HitEventHandler();
 	
 	[Export]
-	public int Speed {get; set;} = 200;
+	//public int Speed {get; set;} = 200;
 	public string Description { get; set; }
 
-	public byte Level { get; set; } = 1; //0-255
+	//public byte Level { get; set; } = 1; //0-255
 	public const byte MaxLevel = 30;
-	public int Health { get; set; } = 100;
-	public int Experience { get; set; } //default 0
+	//public int Health { get; set; } = 100;
+	//public int Experience { get; set; } //default 0
+	
+	private StatManager _sm;
+	private StatManager _statManager
+	{
+		get
+		{
+			if (_sm == null)
+				_sm = StatManager.Instance;
+			return _sm;
+		}
+	}
 	[ExportGroup("Visuals")]
 	[Export] public AnimatedSprite2D PlayerSprite;
 	[Export] public GpuParticles2D PlayerDustParticles;
@@ -39,7 +51,7 @@ public partial class Player : Node2D, IPlayer
 	// Called when the node enters the scene tree for the first time.
 	public override void _EnterTree()
 	{
-		
+		_sm = StatManager.Instance;
 	}
 	public override void _Ready()
 	{
@@ -99,7 +111,7 @@ public partial class Player : Node2D, IPlayer
 	
 		if (Velocity.Length() > 0)
 		{
-			Velocity = Velocity.Normalized() * Speed;
+			Velocity = Velocity.Normalized() * _statManager.GetStat<int>(StatType.Speed);
 			PlayerSprite.Play();
 			PlayerDustParticles.Emitting = true;
 		}
