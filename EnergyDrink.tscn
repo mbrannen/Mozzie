@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmqmxyjpkl1d1"]
+
+[ext_resource type="Script" path="res://Buff.cs" id="1_qcppe"]
+[ext_resource type="Shader" path="res://Art/Shaders/EnergyDrink.gdshader" id="2_7cp6v"]
+[ext_resource type="Texture2D" uid="uid://cwhbqkeg438g8" path="res://Art/Zombie Apocalypse Tileset/Organized separated sprites/Inventory interface/STIM_SLOT.png" id="2_m2k4k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dilfr"]
+shader = ExtResource("2_7cp6v")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_qcppe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_dilfr")
+texture = ExtResource("2_m2k4k")
