@@ -1,6 +1,6 @@
 using Mozzie.Code.Player;
 
-namespace Mozzie.Code.Buffs.Speed;
+namespace Mozzie.Code.Buffs.Speed.BlackLeaf;
 
 public class BlackLeafExtract : PercentageBuffBase
 {
